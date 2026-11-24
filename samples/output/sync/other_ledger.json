@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "base": {
+    "effective_from": "2025-12-31T16:00:00Z",
+    "effective_from_input": "2026-01-01T00:00:00+08:00",
+    "prices": [
+      {
+        "fact": [
+          "S1",
+          "P100",
+          "2026-01-15"
+        ],
+        "value": 4242
+      }
+    ]
+  },
+  "orders": {},
+  "delivery_log": [],
+  "sync_snapshots": {},
+  "price_events": [],
+  "conflicts": [],
+  "evaluation": {
+    "orders": {}
+  },
+  "change_basis": {
+    "version": 1,
+    "facts": []
+  }
+}

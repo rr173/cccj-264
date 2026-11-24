@@ -1,0 +1,66 @@
+{
+  "schema": "store-price-sync-v1",
+  "package_type": "full",
+  "store_id": "S1",
+  "ledger_id": "ldg_755643d954196e12aa560f28ab0785b8",
+  "base_fingerprint": "755643d954196e12aa560f28ab0785b894f3db65856837db5162950c8168ec22",
+  "as_of": "2026-01-11T04:00:00Z",
+  "revision": {
+    "revision_no": 0,
+    "state_digest": "533ad5cd00d32c0459efa138cb914e584ed3e8f8a4a3cd887265458c5f0dd2d5"
+  },
+  "entry_count": 3,
+  "entries_digest": "12c3a4d4772dde2b7c7e3fd6b35f95662dde51f41e18ebabe0fc9c8c322fb106",
+  "parent_snapshot_id": null,
+  "entries": [
+    {
+      "fact": {
+        "store_id": "S1",
+        "product_id": "P100",
+        "date_id": "2026-01-15"
+      },
+      "fact_key": "S1|P100|2026-01-15",
+      "value": 1000,
+      "state": "priced"
+    },
+    {
+      "fact": {
+        "store_id": "S1",
+        "product_id": "P200",
+        "date_id": "2026-01-15"
+      },
+      "fact_key": "S1|P200|2026-01-15",
+      "value": 2000,
+      "state": "priced"
+    },
+    {
+      "fact": {
+        "store_id": "S1",
+        "product_id": "P300",
+        "date_id": "2026-01-15"
+      },
+      "fact_key": "S1|P300|2026-01-15",
+      "value": "NOPRICE",
+      "state": "no_price"
+    }
+  ],
+  "credential": {
+    "kind": "snapshot-credential-v1",
+    "schema": "store-price-sync-v1",
+    "snapshot_id": "snap_76de2d624a8ff5d516d1c404_6afe3d5b",
+    "store_id": "S1",
+    "ledger_id": "ldg_755643d954196e12aa560f28ab0785b8",
+    "base_fingerprint": "755643d954196e12aa560f28ab0785b894f3db65856837db5162950c8168ec22",
+    "revision": {
+      "revision_no": 0,
+      "state_digest": "533ad5cd00d32c0459efa138cb914e584ed3e8f8a4a3cd887265458c5f0dd2d5"
+    },
+    "as_of": "2026-01-11T04:00:00Z",
+    "package_type": "full",
+    "entries_digest": "12c3a4d4772dde2b7c7e3fd6b35f95662dde51f41e18ebabe0fc9c8c322fb106",
+    "parent_snapshot_id": null,
+    "issued_at_utc": "2026-11-24T19:09:03.787580Z",
+    "seal": "sha256:65b5371bea23a0c59994bcee0941ae400d81897b231c6d7f2e54fe98f9a02b2a"
+  },
+  "parent_credential": null
+}

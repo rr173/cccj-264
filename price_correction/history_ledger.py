@@ -713,6 +713,61 @@ def _base_value_map(base: Dict[str, Any]) -> Dict[Fact, Any]:
     return {tuple(item["fact"]): item["value"] for item in base["prices"]}
 
 
+def empty_change_basis() -> Dict[str, Any]:
+    """空变更依据：无任何单据/事件时的规范化空索引。"""
+    return {"version": 1, "facts": []}
+
+
+def build_change_basis(events: List[Dict[str, Any]],
+                       conflicts: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """从本次重算产物汇总“可复用变更依据”。
+
+    只收集被价格事件或冲突组触及的事实及其涉及的单号/事件号；从未变价的
+    事实不在索引中。随 ``recompute_state`` 一起产出，调用方无需再扫描底档
+    价目。结构只含可 JSON 序列化的原始类型。
+    """
+    refs: Dict[Fact, Dict[str, Any]] = {}
+
+    def ensure(fact: Fact) -> Dict[str, Any]:
+        ref = refs.get(fact)
+        if ref is None:
+            ref = {
+                "fact": fact_to_dict(fact),
+                "fact_key": fact_key(fact),
+                "store_id": fact[0],
+                "event_ids": [],
+                "event_order_ids": [],
+                "blocked_order_ids": [],
+                "blocked_group_ids": [],
+            }
+            refs[fact] = ref
+        return ref
+
+    for event in events:
+        fact = tuple(normalize_fact(event["fact"]))
+        ref = ensure(fact)
+        ref["event_ids"].append(event["event_id"])
+        ref["event_order_ids"].append(event["order_id"])
+
+    for conflict in conflicts:
+        for raw_fact in conflict.get("facts", []):
+            fact = tuple(normalize_fact(raw_fact))
+            ref = ensure(fact)
+            ref["blocked_order_ids"].append(conflict["order_id"])
+            ref["blocked_group_ids"].append(
+                f"{conflict['order_id']}:{conflict['group_id']}"
+            )
+
+    facts: List[Dict[str, Any]] = []
+    for ref in refs.values():
+        for key in ("event_ids", "event_order_ids",
+                    "blocked_order_ids", "blocked_group_ids"):
+            ref[key] = sorted(set(ref[key]))
+        facts.append(ref)
+    facts.sort(key=lambda item: item["fact_key"])
+    return {"version": 1, "facts": facts}
+
+
 def recompute_state(state: Dict[str, Any]) -> Dict[str, Any]:
     """从底档和全部已接受单据重建事件、组裁定与冲突。"""
     base = state.get("base")
@@ -726,6 +781,7 @@ def recompute_state(state: Dict[str, Any]) -> Dict[str, Any]:
         state["price_events"] = events
         state["conflicts"] = conflicts
         state["evaluation"] = {"orders": evaluations}
+        state["change_basis"] = empty_change_basis()
         return state
 
     values = _base_value_map(base)
@@ -899,6 +955,9 @@ def recompute_state(state: Dict[str, Any]) -> Dict[str, Any]:
     state["price_events"] = events
     state["conflicts"] = conflicts
     state["evaluation"] = {"orders": evaluations}
+    # 可复用变更依据：只覆盖被事件/冲突触及的事实，续传据此定向取价，
+    # 不遍历未变价目。
+    state["change_basis"] = build_change_basis(events, conflicts)
     return state
 
 
@@ -920,7 +979,14 @@ class PriceHistoryLedger:
     # ---------------- 持久化 ---------------- #
 
     def _default_state(self) -> Dict[str, Any]:
-        return {"version": 1, "base": None, "orders": {}, "delivery_log": []}
+        return {
+            "version": 1,
+            "base": None,
+            "orders": {},
+            "delivery_log": [],
+            # 门店同步层（sync.py）持久化的已发快照凭证登记；无同步时为空。
+            "sync_snapshots": {},
+        }
 
     def _load(self) -> Dict[str, Any]:
         if not self.path.exists():

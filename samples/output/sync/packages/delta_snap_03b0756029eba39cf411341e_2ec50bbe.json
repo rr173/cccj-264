@@ -1,0 +1,65 @@
+{
+  "schema": "store-price-sync-v1",
+  "package_type": "delta",
+  "store_id": "S1",
+  "ledger_id": "ldg_755643d954196e12aa560f28ab0785b8",
+  "base_fingerprint": "755643d954196e12aa560f28ab0785b894f3db65856837db5162950c8168ec22",
+  "as_of": "2026-01-14T04:00:00Z",
+  "revision": {
+    "revision_no": 4,
+    "state_digest": "a6f7eae5fc4cb29f2b0e89019d56f373250379b40fece8e931eb585e3487ec9e"
+  },
+  "entry_count": 1,
+  "entries_digest": "58cdd379faef6e1cbaf172b9a90dca7ef0ac790601b196383489424630aee5a4",
+  "parent_snapshot_id": "snap_f4a3c4a2e07e242e63605071_aa64bd45",
+  "entries": [
+    {
+      "op": "upsert",
+      "fact": {
+        "store_id": "S1",
+        "product_id": "P200",
+        "date_id": "2026-01-15"
+      },
+      "fact_key": "S1|P200|2026-01-15",
+      "value": 1950,
+      "previous_value": 1900,
+      "state": "priced"
+    }
+  ],
+  "credential": {
+    "kind": "snapshot-credential-v1",
+    "schema": "store-price-sync-v1",
+    "snapshot_id": "snap_03b0756029eba39cf411341e_2ec50bbe",
+    "store_id": "S1",
+    "ledger_id": "ldg_755643d954196e12aa560f28ab0785b8",
+    "base_fingerprint": "755643d954196e12aa560f28ab0785b894f3db65856837db5162950c8168ec22",
+    "revision": {
+      "revision_no": 4,
+      "state_digest": "a6f7eae5fc4cb29f2b0e89019d56f373250379b40fece8e931eb585e3487ec9e"
+    },
+    "as_of": "2026-01-14T04:00:00Z",
+    "package_type": "delta",
+    "entries_digest": "58cdd379faef6e1cbaf172b9a90dca7ef0ac790601b196383489424630aee5a4",
+    "parent_snapshot_id": "snap_f4a3c4a2e07e242e63605071_aa64bd45",
+    "issued_at_utc": "2026-11-24T19:12:09.386287Z",
+    "seal": "sha256:22153c2675d642f1468171a1e2db5ee8f96284a50746eed5a376c8a8a1a9d2be"
+  },
+  "parent_credential": {
+    "kind": "snapshot-credential-v1",
+    "schema": "store-price-sync-v1",
+    "snapshot_id": "snap_f4a3c4a2e07e242e63605071_aa64bd45",
+    "store_id": "S1",
+    "ledger_id": "ldg_755643d954196e12aa560f28ab0785b8",
+    "base_fingerprint": "755643d954196e12aa560f28ab0785b894f3db65856837db5162950c8168ec22",
+    "revision": {
+      "revision_no": 3,
+      "state_digest": "1a23ccdb93713cb46a7874f2d376ec7360b130a89f6b3f2cf5c4ca31cd223799"
+    },
+    "as_of": "2026-01-13T10:00:00Z",
+    "package_type": "delta",
+    "entries_digest": "d189409aaa20d62999835b6cba28f62898f10295e3e3af6e5493435e4528bbf0",
+    "parent_snapshot_id": "snap_b27666d98f185e27d9a415f5_67d1ed90",
+    "issued_at_utc": "2026-11-24T19:12:09.370022Z",
+    "seal": "sha256:a013a424778885287d71c2663ecf7feb8cabc14ca506738f31563969a2be75a3"
+  }
+}

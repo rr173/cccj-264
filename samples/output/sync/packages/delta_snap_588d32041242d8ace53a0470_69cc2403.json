@@ -1,0 +1,52 @@
+{
+  "schema": "store-price-sync-v1",
+  "package_type": "delta",
+  "store_id": "S1",
+  "ledger_id": "ldg_755643d954196e12aa560f28ab0785b8",
+  "base_fingerprint": "755643d954196e12aa560f28ab0785b894f3db65856837db5162950c8168ec22",
+  "as_of": "2026-01-12T10:00:00Z",
+  "revision": {
+    "revision_no": 1,
+    "state_digest": "e86d11518784062e807b0e4ca339c590d66c52b5a7017e51a3e300e8c9987967"
+  },
+  "entry_count": 0,
+  "entries_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "parent_snapshot_id": "snap_93519a6aca1da58fb7804dd6_0a167c5a",
+  "entries": [],
+  "credential": {
+    "kind": "snapshot-credential-v1",
+    "schema": "store-price-sync-v1",
+    "snapshot_id": "snap_588d32041242d8ace53a0470_69cc2403",
+    "store_id": "S1",
+    "ledger_id": "ldg_755643d954196e12aa560f28ab0785b8",
+    "base_fingerprint": "755643d954196e12aa560f28ab0785b894f3db65856837db5162950c8168ec22",
+    "revision": {
+      "revision_no": 1,
+      "state_digest": "e86d11518784062e807b0e4ca339c590d66c52b5a7017e51a3e300e8c9987967"
+    },
+    "as_of": "2026-01-12T10:00:00Z",
+    "package_type": "delta",
+    "entries_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "parent_snapshot_id": "snap_93519a6aca1da58fb7804dd6_0a167c5a",
+    "issued_at_utc": "2026-11-24T19:09:03.804451Z",
+    "seal": "sha256:199a97a6d75dffc141b443b721373cb1fc1c71203470fea089b0d2068cadda36"
+  },
+  "parent_credential": {
+    "kind": "snapshot-credential-v1",
+    "schema": "store-price-sync-v1",
+    "snapshot_id": "snap_93519a6aca1da58fb7804dd6_0a167c5a",
+    "store_id": "S1",
+    "ledger_id": "ldg_755643d954196e12aa560f28ab0785b8",
+    "base_fingerprint": "755643d954196e12aa560f28ab0785b894f3db65856837db5162950c8168ec22",
+    "revision": {
+      "revision_no": 0,
+      "state_digest": "533ad5cd00d32c0459efa138cb914e584ed3e8f8a4a3cd887265458c5f0dd2d5"
+    },
+    "as_of": "2026-01-12T04:00:00Z",
+    "package_type": "delta",
+    "entries_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "parent_snapshot_id": "snap_76de2d624a8ff5d516d1c404_6afe3d5b",
+    "issued_at_utc": "2026-11-24T19:09:03.792693Z",
+    "seal": "sha256:f01394fe107e9a6710cc7c2f3e04d0371a3787af2da6d1aa1edf46d5008abed4"
+  }
+}

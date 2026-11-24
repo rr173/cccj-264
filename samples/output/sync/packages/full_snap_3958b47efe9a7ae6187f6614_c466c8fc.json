@@ -1,0 +1,46 @@
+{
+  "schema": "store-price-sync-v1",
+  "package_type": "full",
+  "store_id": "S2",
+  "ledger_id": "ldg_755643d954196e12aa560f28ab0785b8",
+  "base_fingerprint": "755643d954196e12aa560f28ab0785b894f3db65856837db5162950c8168ec22",
+  "as_of": "2026-01-27T04:00:00Z",
+  "revision": {
+    "revision_no": 7,
+    "state_digest": "9ab63abcf1f4d05d652483bcb25b632abb7d0db3704d0910f292e3920fa0aace"
+  },
+  "entry_count": 1,
+  "entries_digest": "a18ab5ae6fdfc6f5f89bcd87ac5a62b71dc6bd6e18544d64a095b577648b572b",
+  "parent_snapshot_id": null,
+  "entries": [
+    {
+      "fact": {
+        "store_id": "S2",
+        "product_id": "P100",
+        "date_id": "2026-01-15"
+      },
+      "fact_key": "S2|P100|2026-01-15",
+      "value": 800,
+      "state": "priced"
+    }
+  ],
+  "credential": {
+    "kind": "snapshot-credential-v1",
+    "schema": "store-price-sync-v1",
+    "snapshot_id": "snap_3958b47efe9a7ae6187f6614_c466c8fc",
+    "store_id": "S2",
+    "ledger_id": "ldg_755643d954196e12aa560f28ab0785b8",
+    "base_fingerprint": "755643d954196e12aa560f28ab0785b894f3db65856837db5162950c8168ec22",
+    "revision": {
+      "revision_no": 7,
+      "state_digest": "9ab63abcf1f4d05d652483bcb25b632abb7d0db3704d0910f292e3920fa0aace"
+    },
+    "as_of": "2026-01-27T04:00:00Z",
+    "package_type": "full",
+    "entries_digest": "a18ab5ae6fdfc6f5f89bcd87ac5a62b71dc6bd6e18544d64a095b577648b572b",
+    "parent_snapshot_id": null,
+    "issued_at_utc": "2026-11-24T19:09:03.952415Z",
+    "seal": "sha256:2bf12d852883faa13bc2d76b1f315f064144f3ef582b8ee47519472547c83882"
+  },
+  "parent_credential": null
+}

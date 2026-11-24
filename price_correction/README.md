@@ -19,6 +19,10 @@ price_correction/
   price_check_cli.py     # 成交价核对 CLI：--db / --transactions / --output-dir
   run_price_check_demo.py # 成交价核对可复跑合成样例与断言
   test_price_check.py    # 成交价核对规则单元测试
+  sync.py                # 门店同步：完整首包/续传差量、快照凭证封印、应用与审计
+  sync_cli.py            # 同步 CLI：full/delta/apply/audit/list
+  run_sync_demo.py       # 同步可复跑合成样例（迟到连带、纯时点推进、无价移除、凭证安全）
+  test_sync.py           # 同步规则单元测试（23 项）
   sample_data.py         # 双视图合成样例（同一底档，门店形/总部形两套清单与回件）
   run_demo.py            # 端到端演示 + 结果断言 + 无效回件变体
   export_sample.py       # 把合成样例导出为文件式回件包 JSON
@@ -260,6 +264,141 @@ python3 -I test_price_check.py
 缺少历史 1 行、底档生效前成交 1 行。无效变体为
 `transactions_invalid_{duplicate_line_id,fields,json}.jsonl`。
 
+## 门店价格同步：完整首包与续传差量（新增）
+
+门店定期领取促销价格更新，不能每次重读整份价目。`sync.py` 在价格历史台账之上
+提供**完整首包（full）**与**续传差量（delta）**，每次发布都附带一枚固定身份的
+**快照凭证**。凭证登记随台账 JSON 原子落盘（临时文件 + `os.replace`）。
+
+### 两条独立的变化轴
+
+1. **接收修订轴**：投递新更正单，或迟到的早期更正到达后重算。重算可能让原先被
+   冲突组挡下的后续组转为生效，也可能让已生效组因 `before` 过期被重新挡下。
+2. **截止时点轴（`as_of`）**：台账里“已接收但生效时间在未来”的事件，会在截止
+   时点推进越过其生效瞬间时进入价格；纯时点推进（无新修订）同样必须反映。
+
+### 快照凭证固定的四要素与不可变性
+
+凭证（`snapshot-credential-v1`）的封印（SHA-256 seal）覆盖：
+
+| 要素 | 来源 |
+| --- | --- |
+| 门店 `store_id` | 发布请求指定 |
+| 台账身份 `ledger_id` / `base_fingerprint` | 底档规范化内容的指纹，底档不变则稳定 |
+| 接收修订 `revision` | 已接受单号数量 + 底档/全部单据身份的状态摘要 `state_digest` |
+| 截止时点 `as_of` | 规范化为 UTC |
+
+封印还覆盖包类型与**条目摘要 `entries_digest`**，因此包内任何条目被改都会验封
+失败。凭证一经发布，后续更正只产生新凭证，已发凭证的登记内容逐字节不变
+（`test_published_credential_is_immutable`）。
+
+### 续传只读取变更依据，不遍历价目
+
+`history_ledger.recompute_state` 在原有入账重算中顺带产出**可复用变更依据**
+`change_basis`：只列出被价格事件或冲突组触及的事实，以及它们涉及的事件号/单号。
+续传的候选事实仅来自三处索引，与价目总量无关：
+
+1. `change_basis` 中本门店的事实（索引读取）；
+2. 前后快照**水位线**之间新生效的事件对应事实（纯时点推进）；
+3. 前快照之后新接收单据中本门店的事实（按 `order_id` 逐单据比对，不依赖字典顺序）。
+
+每个差量快照只登记候选事实的**稀疏状态**；首包另固定一份不可变的底档基线值供
+回退比对，不会把整店快照复制进每次续传。`test_delta_reads_only_touched_facts`
+在 6000 事实（单店 3000）的台账上断言：首包读取 3000 个事实，而一次两事实变更的
+续传取价次数 < 10、登记稀疏状态 < 10 条，且续传路径上调用整店枚举会直接失败。
+
+### 差量条目语义
+
+* 无变化的事实**不发送**；没有任何变化时发布 `entry_count = 0` 的空差量（仍是
+  一次有效发布，产生新凭证）。
+* 有效状态变为明确无价 `NOPRICE` 时发 `op = "remove"`（带 `previous_value`），
+  与“记录缺失”严格区分；无价重新定价时发 `op = "upsert"`。
+* 同一事实在一次发布中最多一条；迟到更正连带多组后，条目呈现的是重算后的**最终
+  值**，不发中间值。
+* 应用差量后的门店镜像必须等于当前已接收台账修订在该时点对该门店的**完整价格
+  状态**：`audit_application` 按门店全部底档事实逐事实比对并核对修订摘要。
+
+### 凭证/包拒绝规则
+
+以下情形在落盘前拒绝，不返回包、不新增凭证登记、包目录不留文件：
+
+* 凭证封印损坏或字段被改（含改门店、台账、截止时点、修订后未重封印）；
+* 跨店使用凭证；底档指纹不同的跨台账使用凭证；
+* 凭证不在本台账已发快照登记中（即使伪造者自行重封印也拒绝）；
+* 截止时点相对凭证倒退；接收修订号倒退；
+* 客户端未应用首包就收到差量，或差量 `parent_snapshot_id` 与客户端上次凭证不符；
+* 包条目摘要与凭证封印不一致（包内容被篡改）。
+
+旧凭证可用于**不同截止时点的重复续传**（不要求沿最新凭证链）；每次发布都生成
+新的 `snapshot_id`，已发凭证永不删除、永不反改。
+
+### 同步包 schema
+
+```json
+{
+  "schema": "store-price-sync-v1",
+  "package_type": "full",
+  "store_id": "S1",
+  "ledger_id": "ldg_....",
+  "base_fingerprint": "sha256....",
+  "as_of": "2026-01-11T04:00:00Z",
+  "revision": {"revision_no": 0, "state_digest": "sha256...."},
+  "entry_count": 3,
+  "entries_digest": "sha256....",
+  "parent_snapshot_id": null,
+  "entries": [
+    {"fact_key": "S1|P100|2026-01-15", "fact": {"store_id": "S1", "...": "..."},
+     "value": 1000, "state": "priced"}
+  ],
+  "credential": {"kind": "snapshot-credential-v1", "snapshot_id": "snap_....",
+                 "seal": "sha256:....", "...": "固定四要素与条目摘要"},
+  "parent_credential": null
+}
+```
+
+差量条目形如
+`{"op": "upsert"|"remove", "fact_key": "...", "value"?, "previous_value": ...}`；
+差量包的 `parent_credential` 内嵌上次凭证，便于门店侧独立校验接续关系。
+
+### 同步 CLI
+
+以下命令均在 `price_correction/` 目录下执行：
+
+```bash
+# 可复跑合成样例（重建样例台账与全部同步包，含断言与文字报告）
+python3 -I run_sync_demo.py
+
+# 服务端：完整首包（包与凭证在单个 JSON 内一次原子写入）
+python3 -I sync_cli.py full --db LEDGER --store S1 \
+    --as-of '2026-01-11T12:00:00+08:00' --output-dir DIR
+
+# 服务端：续传差量（--credential 可指凭证 JSON 或上次的同步包文件）
+python3 -I sync_cli.py delta --db LEDGER --store S1 \
+    --as-of '2026-01-13T12:00:00+08:00' \
+    --credential DIR/sync_full_*.json --output-dir DIR
+
+# 门店侧：依次应用首包与各差量，维护本地镜像状态（原子写入）
+python3 -I sync_cli.py apply --package PKG.json --state DIR/client_state.json
+
+# 审计：镜像必须等于台账该时点完整价格状态（不一致退出码 4）
+python3 -I sync_cli.py audit --db LEDGER --state DIR/client_state.json
+
+# 列出某门店全部已发快照凭证
+python3 -I sync_cli.py list --db LEDGER --store S1
+
+# 单元测试（23 项）
+python3 -I test_sync.py
+```
+
+退出码：`0` 成功；`2` 凭证/包/输入错误（拒绝且无部分结果）；`3` 台账读写失败；
+`4` 审计发现镜像与台账不一致。
+
+合成样例一条时间线覆盖：完整首包、无修订空差量、被挡组不影响价格、**迟到早期
+更正连带后续组生效**、迟到更正使已生效组**重新被挡**（价格回退）、**纯时点推进**
+让未来事件进入价格、有价→无价发 **remove** 与无价→有价再 upsert、旧凭证在不同
+截止时点重复续传，以及损坏/跨店/跨台账/未登记/倒拨/篡改包六类拒绝。产物位于
+`../samples/output/sync/`（台账、`packages/` 同步包、客户端镜像、文字报告）。
+
 ## 输入 JSON schema（cli.py）
 
 ```json
@@ -316,6 +455,10 @@ python3 -I cli.py --input ../samples/return_bundle_invalid.json \
 # 成交价核对（17 项单元测试 + 可复跑样例）
 python3 -I test_price_check.py
 python3 -I run_price_check_demo.py
+
+# 门店价格同步（23 项单元测试 + 可复跑样例）
+python3 -I test_sync.py
+python3 -I run_sync_demo.py
 ```
 
 ## 合成样例覆盖的情形

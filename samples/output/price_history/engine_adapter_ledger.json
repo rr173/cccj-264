@@ -1118,6 +1118,7 @@
       "conflict_groups_after_recompute": []
     }
   ],
+  "sync_snapshots": {},
   "price_events": [
     {
       "event_id": "ENGINE-GOLDEN-001:G001:S1|P1|D1",
@@ -1609,5 +1610,112 @@
         "status": "applied"
       }
     }
+  },
+  "change_basis": {
+    "version": 1,
+    "facts": [
+      {
+        "fact": {
+          "store_id": "S1",
+          "product_id": "P1",
+          "date_id": "D1"
+        },
+        "fact_key": "S1|P1|D1",
+        "store_id": "S1",
+        "event_ids": [
+          "ENGINE-GOLDEN-001:G001:S1|P1|D1"
+        ],
+        "event_order_ids": [
+          "ENGINE-GOLDEN-001"
+        ],
+        "blocked_order_ids": [],
+        "blocked_group_ids": []
+      },
+      {
+        "fact": {
+          "store_id": "S1",
+          "product_id": "P1",
+          "date_id": "D2"
+        },
+        "fact_key": "S1|P1|D2",
+        "store_id": "S1",
+        "event_ids": [
+          "ENGINE-GOLDEN-001:G002:S1|P1|D2"
+        ],
+        "event_order_ids": [
+          "ENGINE-GOLDEN-001"
+        ],
+        "blocked_order_ids": [],
+        "blocked_group_ids": []
+      },
+      {
+        "fact": {
+          "store_id": "S1",
+          "product_id": "P2",
+          "date_id": "D3"
+        },
+        "fact_key": "S1|P2|D3",
+        "store_id": "S1",
+        "event_ids": [
+          "ENGINE-GOLDEN-001:G006:S1|P2|D3"
+        ],
+        "event_order_ids": [
+          "ENGINE-GOLDEN-001"
+        ],
+        "blocked_order_ids": [],
+        "blocked_group_ids": []
+      },
+      {
+        "fact": {
+          "store_id": "S2",
+          "product_id": "P1",
+          "date_id": "D3"
+        },
+        "fact_key": "S2|P1|D3",
+        "store_id": "S2",
+        "event_ids": [
+          "ENGINE-GOLDEN-001:G006:S2|P1|D3"
+        ],
+        "event_order_ids": [
+          "ENGINE-GOLDEN-001"
+        ],
+        "blocked_order_ids": [],
+        "blocked_group_ids": []
+      },
+      {
+        "fact": {
+          "store_id": "S2",
+          "product_id": "P2",
+          "date_id": "D1"
+        },
+        "fact_key": "S2|P2|D1",
+        "store_id": "S2",
+        "event_ids": [
+          "ENGINE-GOLDEN-001:G008:S2|P2|D1"
+        ],
+        "event_order_ids": [
+          "ENGINE-GOLDEN-001"
+        ],
+        "blocked_order_ids": [],
+        "blocked_group_ids": []
+      },
+      {
+        "fact": {
+          "store_id": "S2",
+          "product_id": "P2",
+          "date_id": "D3"
+        },
+        "fact_key": "S2|P2|D3",
+        "store_id": "S2",
+        "event_ids": [
+          "ENGINE-GOLDEN-001:G010:S2|P2|D3"
+        ],
+        "event_order_ids": [
+          "ENGINE-GOLDEN-001"
+        ],
+        "blocked_order_ids": [],
+        "blocked_group_ids": []
+      }
+    ]
   }
 }
