@@ -7,16 +7,25 @@
 
 ```
 price_correction/
-  engine.py         # 核心引擎：校验、组连通（并查集）、裁定、出单、报告
-  sample_data.py    # 双视图合成样例（同一底档，门店形/总部形两套清单与回件）
-  run_demo.py       # 端到端演示 + 结果断言 + 无效回件变体
-  export_sample.py  # 把合成样例导出为文件式回件包 JSON
-  cli.py            # 文件式 CLI：读回件包 JSON，出更正单或拒单错误
-  test_engine.py    # 17 项规则级单元测试
+  engine.py              # 核心引擎：校验、组连通（并查集）、裁定、出单、报告
+  history_ledger.py      # 价格历史台账：落盘、乱序重算、时点查询、来源/冲突追溯
+  history_cli.py         # 台账 CLI：init/deliver/query/history/conflicts/orders/export
+  ledger.py              # 兼容别名（转出 PriceHistoryLedger）
+  price_history.py       # 兼容别名（转出 PriceHistoryLedger）
+  price_history_cli.py   # 兼容别名（调用 history_cli.main）
+  run_history_demo.py    # 台账可复跑合成样例与断言
+  test_history_ledger.py # 台账规则单元测试
+  sample_data.py         # 双视图合成样例（同一底档，门店形/总部形两套清单与回件）
+  run_demo.py            # 端到端演示 + 结果断言 + 无效回件变体
+  export_sample.py       # 把合成样例导出为文件式回件包 JSON
+  cli.py                 # 文件式 CLI：读回件包 JSON，出更正单或拒单错误
+  test_engine.py         # 17 项规则级单元测试
 samples/
   return_bundle.json          # 有效回件包（导出）
   return_bundle_invalid.json  # 无效回件包（范围外签值）
+  price_history/              # 台账样例底档与乱序/重复/无效投递批
   samples/output/...          # 更正单 JSON、文字报告、拒单错误
+  output/price_history/      # 台账 JSON、样例报告和查询来源 JSON
 ```
 
 ## 业务规则到实现的对应
@@ -41,6 +50,125 @@ samples/
 | 零变动通过组可查审查状态但不列价差 | `passed_components` 标 `has_price_change=false`；`fact_trace` 可查 |
 | 拒发组可从任一连带项追查失败项、原因、两份回件坐标 | `RejectedComponent`（`failure_facts`/`reasons`/`links`）+ `fact_trace` |
 | 每条价差只列一次 | 去重集合 `seen_change` + `_self_check` 断言 |
+
+## 价格历史台账（新增）
+
+`history_ledger.py` 从**底档起始快照**和**已批准更正单**建立可持久化、可重算的价格变化链。
+台账文件是原子替换写入的 JSON；重新打开进程后直接继续使用。
+
+### 台账输入 schema
+
+底档：
+
+```json
+{
+  "effective_from": "2026-01-01T00:00:00+08:00",
+  "prices": [
+    {"store_id": "S1", "product_id": "P100", "date_id": "2026-01-15", "value": 1000},
+    {"store_id": "S1", "product_id": "P200", "date_id": "2026-01-15", "value": "NOPRICE"}
+  ]
+}
+```
+
+投递批（也允许顶层直接放单笔更正单，或用 `orders`/`correction_orders`/`items` 包裹）：
+
+```json
+{
+  "orders": [
+    {
+      "order_id": "CO-001",
+      "effective_at": "2026-01-05T10:00:00+08:00",
+      "sequence": 0,
+      "content": {
+        "groups": [
+          {
+            "group_id": "G1",
+            "facts": [
+              {"store_id": "S1", "product_id": "P100", "date_id": "2026-01-15",
+               "before": 1000, "after": 950}
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+* `effective_at` 必须是带时区的 ISO 8601 时间；内部统一规范化为 UTC。
+* `sequence` 是同一 `effective_at` 内的非负整数。`(effective_at, sequence)` 被不同单号占用时硬拒绝。
+* `before` 是更正单写明的变更前价格；`after` 是通过后的价格。`before == after` 的零变动事实只参与组核对，不生成价格事件，也不替换原来源。
+* `content` 也可以直接放现有 `cli.py`/`engine.py` 生成的 `correction_order.json`：台账只取 `passed_components`、`fact_trace` 和 `price_changes`，自动忽略 `rejected_components`。
+
+### 一致性与冲突规则
+
+1. 已接受单据先按 `(effective_at, sequence, order_id)` 排序，再从底档重放；因此文件/批次到达顺序不影响最终历史。
+2. 迟到的更早生效单据入库后，所有后续组的核对结果会重算。例如后续单初次到达时可能因期望值仍是底档而被挡，早期单补齐后会自动变为生效。
+3. 某个通过组中**任一事实**的 `before` 与该生效位置的台账应有价格不同，则该组所有变化均不生效；冲突记录包含冲突事实、单内原值 `original_value`/`before`、台账期望值 `expected_value`/`expected` 及期望来源。
+4. 同一更正单中其他互不关联的通过组仍可入账。
+5. 相同 `order_id` 且规范化后的时间、顺序、内容完全相同：幂等忽略，不重复记账。相同 `order_id` 但任一字段/内容不同：硬拒绝，不覆盖原单。
+6. 单号冲突、无效/底档外事实、重复顺序位置、结构错误属于投递硬错误：整批在内存副本上校验，失败时不写台账文件，因此不会只写入部分记录。
+7. 组内过期是业务冲突而非投递结构错误：问题组持久化为 `blocked`，同批独立组照常入账，事后可通过 `conflicts` 或查询结果中的 `blocked_attempts` 追踪。
+
+### 查询状态
+
+`query` 返回的 `status` 明确区分：
+
+| status | 含义 |
+| --- | --- |
+| `OK` | 查有历史且当前为有价，`value` 为非负整数分 |
+| `NO_PRICE` | 查有历史，但生效值是明确的 `NOPRICE` |
+| `MISSING_HISTORY` | 底档和已生效更正中都没有该事实；这是缺少记录，不是无价 |
+| `NO_HISTORY_BEFORE_BASE` | 查询时点早于底档 `effective_from`，此前尚无历史 |
+| `BASE_NOT_INITIALIZED` | 台账尚未初始化 |
+
+查询结果的 `source` 是直接来源（底档或某更正单/组），`sources`/`provenance_chain` 是从底档到直接来源的完整形成链；`blocked_attempts` 列出截至查询时点被冲突组挡下的变更。
+
+### 台账 CLI
+
+以下命令均在 `price_correction/` 目录下执行：
+
+```bash
+# 可复跑合成样例（重置样例台账，包含断言、报告和查询 JSON）
+python3 -I run_history_demo.py
+
+# 初始化
+python3 -I history_cli.py init \
+  --db ../samples/output/price_history/ledger.json \
+  --base ../samples/price_history/base.json
+
+# 投递乱序批次/重复批次
+python3 -I history_cli.py deliver \
+  --db ../samples/output/price_history/ledger.json \
+  --input ../samples/price_history/batch_03_late_early.json
+
+# 时点查询（文本来源链）
+python3 -I history_cli.py query \
+  --db ../samples/output/price_history/ledger.json \
+  --store S1 --product P100 --date 2026-01-15 \
+  --at '2026-01-12T12:00:00+08:00'
+
+# 完整 JSON、事实全历史、冲突组、单据状态
+python3 -I history_cli.py query --db LEDGER ... --json
+python3 -I history_cli.py history --db LEDGER --store S1 --product P100 --date D
+python3 -I history_cli.py conflicts --db LEDGER
+python3 -I history_cli.py orders --db LEDGER
+
+# 直接把现有签审引擎输出作为更正单内容入账
+python3 -I history_cli.py deliver \
+  --db LEDGER \
+  --order ../samples/output/cli_ok/correction_order.json \
+  --order-id CO-ENGINE-001 \
+  --effective-at '2026-02-01T00:00:00+08:00' \
+  --sequence 0
+
+# 台账单元测试（14 项）
+python3 -I test_history_ledger.py
+```
+
+完整样例报告位于
+`../samples/output/price_history/history_demo_report.txt`，查询来源 JSON 位于
+`../samples/output/price_history/queries/`。
 
 ## 输入 JSON schema（cli.py）
 

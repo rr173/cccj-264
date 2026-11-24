@@ -1,0 +1,115 @@
+{
+  "query": {
+    "fact": {
+      "store_id": "S2",
+      "product_id": "P200",
+      "date_id": "2026-01-15"
+    },
+    "at_input": "2026-01-19T12:00:00+08:00",
+    "at_utc": "2026-01-19T04:00:00Z",
+    "naive_time_assumed_timezone": null
+  },
+  "status": "NO_PRICE",
+  "found": true,
+  "has_history": true,
+  "price_status": "no_price",
+  "value": "NOPRICE",
+  "effective_value": "NOPRICE",
+  "value_display": "无价",
+  "effective_price_fen": null,
+  "price_fen": null,
+  "is_no_price": true,
+  "is_missing_history": false,
+  "source": {
+    "type": "correction_order",
+    "kind": "correction_order",
+    "order_id": "CO-005-TO-NOPRICE",
+    "effective_at": "2026-01-18T02:00:00Z",
+    "sequence": 0,
+    "group_id": "G-NOPRICE",
+    "event_id": "CO-005-TO-NOPRICE:G-NOPRICE:S2|P200|2026-01-15",
+    "description": "已批准更正单 CO-005-TO-NOPRICE 通过组 G-NOPRICE"
+  },
+  "sources": [
+    {
+      "kind": "base",
+      "type": "base",
+      "effective_from": "2025-12-31T16:00:00Z",
+      "value": 500
+    },
+    {
+      "kind": "correction_order",
+      "type": "correction_order",
+      "order_id": "CO-005-TO-NOPRICE",
+      "group_id": "G-NOPRICE",
+      "effective_at": "2026-01-18T02:00:00Z",
+      "sequence": 0,
+      "before_value": 500,
+      "after_value": "NOPRICE",
+      "change_kind": "to_noprice",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "CO-005-TO-NOPRICE",
+        "effective_at": "2026-01-18T02:00:00Z",
+        "sequence": 0,
+        "group_id": "G-NOPRICE",
+        "event_id": "CO-005-TO-NOPRICE:G-NOPRICE:S2|P200|2026-01-15",
+        "description": "已批准更正单 CO-005-TO-NOPRICE 通过组 G-NOPRICE"
+      }
+    }
+  ],
+  "provenance_chain": [
+    {
+      "kind": "base",
+      "type": "base",
+      "effective_from": "2025-12-31T16:00:00Z",
+      "value": 500
+    },
+    {
+      "kind": "correction_order",
+      "type": "correction_order",
+      "order_id": "CO-005-TO-NOPRICE",
+      "group_id": "G-NOPRICE",
+      "effective_at": "2026-01-18T02:00:00Z",
+      "sequence": 0,
+      "before_value": 500,
+      "after_value": "NOPRICE",
+      "change_kind": "to_noprice",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "CO-005-TO-NOPRICE",
+        "effective_at": "2026-01-18T02:00:00Z",
+        "sequence": 0,
+        "group_id": "G-NOPRICE",
+        "event_id": "CO-005-TO-NOPRICE:G-NOPRICE:S2|P200|2026-01-15",
+        "description": "已批准更正单 CO-005-TO-NOPRICE 通过组 G-NOPRICE"
+      }
+    }
+  ],
+  "applied_corrections": [
+    {
+      "kind": "correction_order",
+      "type": "correction_order",
+      "order_id": "CO-005-TO-NOPRICE",
+      "group_id": "G-NOPRICE",
+      "effective_at": "2026-01-18T02:00:00Z",
+      "sequence": 0,
+      "before_value": 500,
+      "after_value": "NOPRICE",
+      "change_kind": "to_noprice",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "CO-005-TO-NOPRICE",
+        "effective_at": "2026-01-18T02:00:00Z",
+        "sequence": 0,
+        "group_id": "G-NOPRICE",
+        "event_id": "CO-005-TO-NOPRICE:G-NOPRICE:S2|P200|2026-01-15",
+        "description": "已批准更正单 CO-005-TO-NOPRICE 通过组 G-NOPRICE"
+      }
+    }
+  ],
+  "blocked_attempts": []
+}

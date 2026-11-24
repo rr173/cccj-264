@@ -1,0 +1,407 @@
+{
+  "query": {
+    "fact": {
+      "store_id": "S1",
+      "product_id": "P100",
+      "date_id": "2026-01-15"
+    },
+    "at_input": "2026-01-21T00:00:00+08:00",
+    "at_utc": "2026-01-20T16:00:00Z",
+    "naive_time_assumed_timezone": null
+  },
+  "status": "OK",
+  "found": true,
+  "has_history": true,
+  "price_status": "priced",
+  "value": 870,
+  "effective_value": 870,
+  "value_display": "870分",
+  "effective_price_fen": 870,
+  "price_fen": 870,
+  "is_no_price": false,
+  "is_missing_history": false,
+  "source": {
+    "type": "correction_order",
+    "kind": "correction_order",
+    "order_id": "CO-007-SEQ1",
+    "effective_at": "2026-01-20T07:00:00Z",
+    "sequence": 1,
+    "group_id": "G-SEQ1",
+    "event_id": "CO-007-SEQ1:G-SEQ1:S1|P100|2026-01-15",
+    "description": "已批准更正单 CO-007-SEQ1 通过组 G-SEQ1"
+  },
+  "sources": [
+    {
+      "kind": "base",
+      "type": "base",
+      "effective_from": "2025-12-31T16:00:00Z",
+      "value": 1000
+    },
+    {
+      "kind": "correction_order",
+      "type": "correction_order",
+      "order_id": "CO-001-EARLY",
+      "group_id": "G-EARLY",
+      "effective_at": "2026-01-05T02:00:00Z",
+      "sequence": 0,
+      "before_value": 1000,
+      "after_value": 950,
+      "change_kind": "price_to_price",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "CO-001-EARLY",
+        "effective_at": "2026-01-05T02:00:00Z",
+        "sequence": 0,
+        "group_id": "G-EARLY",
+        "event_id": "CO-001-EARLY:G-EARLY:S1|P100|2026-01-15",
+        "description": "已批准更正单 CO-001-EARLY 通过组 G-EARLY"
+      }
+    },
+    {
+      "kind": "correction_order",
+      "type": "correction_order",
+      "order_id": "CO-002-CHAIN",
+      "group_id": "G-CHAIN",
+      "effective_at": "2026-01-10T02:00:00Z",
+      "sequence": 0,
+      "before_value": 950,
+      "after_value": 900,
+      "change_kind": "price_to_price",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "CO-002-CHAIN",
+        "effective_at": "2026-01-10T02:00:00Z",
+        "sequence": 0,
+        "group_id": "G-CHAIN",
+        "event_id": "CO-002-CHAIN:G-CHAIN:S1|P100|2026-01-15",
+        "description": "已批准更正单 CO-002-CHAIN 通过组 G-CHAIN"
+      }
+    },
+    {
+      "kind": "correction_order",
+      "type": "correction_order",
+      "order_id": "CO-006-SEQ0",
+      "group_id": "G-SEQ0",
+      "effective_at": "2026-01-20T07:00:00Z",
+      "sequence": 0,
+      "before_value": 900,
+      "after_value": 880,
+      "change_kind": "price_to_price",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "CO-006-SEQ0",
+        "effective_at": "2026-01-20T07:00:00Z",
+        "sequence": 0,
+        "group_id": "G-SEQ0",
+        "event_id": "CO-006-SEQ0:G-SEQ0:S1|P100|2026-01-15",
+        "description": "已批准更正单 CO-006-SEQ0 通过组 G-SEQ0"
+      }
+    },
+    {
+      "kind": "correction_order",
+      "type": "correction_order",
+      "order_id": "CO-007-SEQ1",
+      "group_id": "G-SEQ1",
+      "effective_at": "2026-01-20T07:00:00Z",
+      "sequence": 1,
+      "before_value": 880,
+      "after_value": 870,
+      "change_kind": "price_to_price",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "CO-007-SEQ1",
+        "effective_at": "2026-01-20T07:00:00Z",
+        "sequence": 1,
+        "group_id": "G-SEQ1",
+        "event_id": "CO-007-SEQ1:G-SEQ1:S1|P100|2026-01-15",
+        "description": "已批准更正单 CO-007-SEQ1 通过组 G-SEQ1"
+      }
+    }
+  ],
+  "provenance_chain": [
+    {
+      "kind": "base",
+      "type": "base",
+      "effective_from": "2025-12-31T16:00:00Z",
+      "value": 1000
+    },
+    {
+      "kind": "correction_order",
+      "type": "correction_order",
+      "order_id": "CO-001-EARLY",
+      "group_id": "G-EARLY",
+      "effective_at": "2026-01-05T02:00:00Z",
+      "sequence": 0,
+      "before_value": 1000,
+      "after_value": 950,
+      "change_kind": "price_to_price",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "CO-001-EARLY",
+        "effective_at": "2026-01-05T02:00:00Z",
+        "sequence": 0,
+        "group_id": "G-EARLY",
+        "event_id": "CO-001-EARLY:G-EARLY:S1|P100|2026-01-15",
+        "description": "已批准更正单 CO-001-EARLY 通过组 G-EARLY"
+      }
+    },
+    {
+      "kind": "correction_order",
+      "type": "correction_order",
+      "order_id": "CO-002-CHAIN",
+      "group_id": "G-CHAIN",
+      "effective_at": "2026-01-10T02:00:00Z",
+      "sequence": 0,
+      "before_value": 950,
+      "after_value": 900,
+      "change_kind": "price_to_price",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "CO-002-CHAIN",
+        "effective_at": "2026-01-10T02:00:00Z",
+        "sequence": 0,
+        "group_id": "G-CHAIN",
+        "event_id": "CO-002-CHAIN:G-CHAIN:S1|P100|2026-01-15",
+        "description": "已批准更正单 CO-002-CHAIN 通过组 G-CHAIN"
+      }
+    },
+    {
+      "kind": "correction_order",
+      "type": "correction_order",
+      "order_id": "CO-006-SEQ0",
+      "group_id": "G-SEQ0",
+      "effective_at": "2026-01-20T07:00:00Z",
+      "sequence": 0,
+      "before_value": 900,
+      "after_value": 880,
+      "change_kind": "price_to_price",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "CO-006-SEQ0",
+        "effective_at": "2026-01-20T07:00:00Z",
+        "sequence": 0,
+        "group_id": "G-SEQ0",
+        "event_id": "CO-006-SEQ0:G-SEQ0:S1|P100|2026-01-15",
+        "description": "已批准更正单 CO-006-SEQ0 通过组 G-SEQ0"
+      }
+    },
+    {
+      "kind": "correction_order",
+      "type": "correction_order",
+      "order_id": "CO-007-SEQ1",
+      "group_id": "G-SEQ1",
+      "effective_at": "2026-01-20T07:00:00Z",
+      "sequence": 1,
+      "before_value": 880,
+      "after_value": 870,
+      "change_kind": "price_to_price",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "CO-007-SEQ1",
+        "effective_at": "2026-01-20T07:00:00Z",
+        "sequence": 1,
+        "group_id": "G-SEQ1",
+        "event_id": "CO-007-SEQ1:G-SEQ1:S1|P100|2026-01-15",
+        "description": "已批准更正单 CO-007-SEQ1 通过组 G-SEQ1"
+      }
+    }
+  ],
+  "applied_corrections": [
+    {
+      "kind": "correction_order",
+      "type": "correction_order",
+      "order_id": "CO-001-EARLY",
+      "group_id": "G-EARLY",
+      "effective_at": "2026-01-05T02:00:00Z",
+      "sequence": 0,
+      "before_value": 1000,
+      "after_value": 950,
+      "change_kind": "price_to_price",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "CO-001-EARLY",
+        "effective_at": "2026-01-05T02:00:00Z",
+        "sequence": 0,
+        "group_id": "G-EARLY",
+        "event_id": "CO-001-EARLY:G-EARLY:S1|P100|2026-01-15",
+        "description": "已批准更正单 CO-001-EARLY 通过组 G-EARLY"
+      }
+    },
+    {
+      "kind": "correction_order",
+      "type": "correction_order",
+      "order_id": "CO-002-CHAIN",
+      "group_id": "G-CHAIN",
+      "effective_at": "2026-01-10T02:00:00Z",
+      "sequence": 0,
+      "before_value": 950,
+      "after_value": 900,
+      "change_kind": "price_to_price",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "CO-002-CHAIN",
+        "effective_at": "2026-01-10T02:00:00Z",
+        "sequence": 0,
+        "group_id": "G-CHAIN",
+        "event_id": "CO-002-CHAIN:G-CHAIN:S1|P100|2026-01-15",
+        "description": "已批准更正单 CO-002-CHAIN 通过组 G-CHAIN"
+      }
+    },
+    {
+      "kind": "correction_order",
+      "type": "correction_order",
+      "order_id": "CO-006-SEQ0",
+      "group_id": "G-SEQ0",
+      "effective_at": "2026-01-20T07:00:00Z",
+      "sequence": 0,
+      "before_value": 900,
+      "after_value": 880,
+      "change_kind": "price_to_price",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "CO-006-SEQ0",
+        "effective_at": "2026-01-20T07:00:00Z",
+        "sequence": 0,
+        "group_id": "G-SEQ0",
+        "event_id": "CO-006-SEQ0:G-SEQ0:S1|P100|2026-01-15",
+        "description": "已批准更正单 CO-006-SEQ0 通过组 G-SEQ0"
+      }
+    },
+    {
+      "kind": "correction_order",
+      "type": "correction_order",
+      "order_id": "CO-007-SEQ1",
+      "group_id": "G-SEQ1",
+      "effective_at": "2026-01-20T07:00:00Z",
+      "sequence": 1,
+      "before_value": 880,
+      "after_value": 870,
+      "change_kind": "price_to_price",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "CO-007-SEQ1",
+        "effective_at": "2026-01-20T07:00:00Z",
+        "sequence": 1,
+        "group_id": "G-SEQ1",
+        "event_id": "CO-007-SEQ1:G-SEQ1:S1|P100|2026-01-15",
+        "description": "已批准更正单 CO-007-SEQ1 通过组 G-SEQ1"
+      }
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "order_id": "CO-004-MIXED-GROUP",
+      "effective_at": "2026-01-15T02:00:00Z",
+      "sequence": 0,
+      "group_id": "G-STALE-ALL-OR-NOTHING",
+      "facts": [
+        [
+          "S1",
+          "P100",
+          "2026-01-15"
+        ],
+        [
+          "S1",
+          "P100",
+          "2026-01-16"
+        ]
+      ],
+      "conflict_facts": [
+        {
+          "store_id": "S1",
+          "product_id": "P100",
+          "date_id": "2026-01-16"
+        }
+      ],
+      "conflicts": [
+        {
+          "fact": {
+            "store_id": "S1",
+            "product_id": "P100",
+            "date_id": "2026-01-16"
+          },
+          "fact_key": "S1|P100|2026-01-16",
+          "original_value": 1200,
+          "before": 1200,
+          "stated_before_value": 1200,
+          "expected_value": 1150,
+          "expected": 1150,
+          "actual_value": 1150,
+          "current_value": 1150,
+          "ledger_value": 1150,
+          "expected_source": {
+            "type": "correction_order",
+            "kind": "correction_order",
+            "order_id": "CO-003-B-UPDATE",
+            "effective_at": "2026-01-12T02:00:00Z",
+            "sequence": 0,
+            "group_id": "G-B-OK",
+            "event_id": "CO-003-B-UPDATE:G-B-OK:S1|P100|2026-01-16",
+            "description": "已批准更正单 CO-003-B-UPDATE 通过组 G-B-OK"
+          },
+          "message": "变更前价格 1200分 与该时点应有价格 1150分 不符"
+        }
+      ],
+      "blocked_changes": [
+        {
+          "fact": {
+            "store_id": "S1",
+            "product_id": "P100",
+            "date_id": "2026-01-15"
+          },
+          "from_value": 900,
+          "to_value": 850,
+          "change_kind": "price_to_price",
+          "order_id": "CO-004-MIXED-GROUP",
+          "effective_at": "2026-01-15T02:00:00Z",
+          "sequence": 0,
+          "group_id": "G-STALE-ALL-OR-NOTHING"
+        },
+        {
+          "fact": {
+            "store_id": "S1",
+            "product_id": "P100",
+            "date_id": "2026-01-16"
+          },
+          "from_value": 1200,
+          "to_value": 1100,
+          "change_kind": "price_to_price",
+          "order_id": "CO-004-MIXED-GROUP",
+          "effective_at": "2026-01-15T02:00:00Z",
+          "sequence": 0,
+          "group_id": "G-STALE-ALL-OR-NOTHING"
+        }
+      ],
+      "status": "blocked",
+      "matched_conflict_fact": false,
+      "blocked_changes_for_fact": [
+        {
+          "fact": {
+            "store_id": "S1",
+            "product_id": "P100",
+            "date_id": "2026-01-15"
+          },
+          "from_value": 900,
+          "to_value": 850,
+          "change_kind": "price_to_price",
+          "order_id": "CO-004-MIXED-GROUP",
+          "effective_at": "2026-01-15T02:00:00Z",
+          "sequence": 0,
+          "group_id": "G-STALE-ALL-OR-NOTHING"
+        }
+      ]
+    }
+  ]
+}

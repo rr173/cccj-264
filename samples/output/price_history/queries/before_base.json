@@ -1,0 +1,27 @@
+{
+  "query": {
+    "fact": {
+      "store_id": "S1",
+      "product_id": "P100",
+      "date_id": "2026-01-15"
+    },
+    "at_input": "2025-12-31T23:30:00+08:00",
+    "at_utc": "2025-12-31T15:30:00Z",
+    "naive_time_assumed_timezone": null
+  },
+  "status": "NO_HISTORY_BEFORE_BASE",
+  "found": false,
+  "has_history": false,
+  "value": null,
+  "price_status": "no_history",
+  "base_effective_from": "2025-12-31T16:00:00Z",
+  "base_effective_from_input": "2026-01-01T00:00:00+08:00",
+  "message": "查询时点 2025-12-31T15:30:00Z 早于初始底档生效时点 2025-12-31T16:00:00Z，此前尚无价格历史",
+  "source": {
+    "type": "base",
+    "effective_from": "2025-12-31T16:00:00Z"
+  },
+  "sources": [],
+  "applied_corrections": [],
+  "blocked_attempts": []
+}

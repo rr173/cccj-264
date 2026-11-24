@@ -1,0 +1,115 @@
+{
+  "query": {
+    "fact": {
+      "store_id": "S1",
+      "product_id": "P1",
+      "date_id": "D1"
+    },
+    "at_input": "2026-02-02T10:00:00+08:00",
+    "at_utc": "2026-02-02T02:00:00Z",
+    "naive_time_assumed_timezone": null
+  },
+  "status": "OK",
+  "found": true,
+  "has_history": true,
+  "price_status": "priced",
+  "value": 480,
+  "effective_value": 480,
+  "value_display": "480分",
+  "effective_price_fen": 480,
+  "price_fen": 480,
+  "is_no_price": false,
+  "is_missing_history": false,
+  "source": {
+    "type": "correction_order",
+    "kind": "correction_order",
+    "order_id": "ENGINE-GOLDEN-001",
+    "effective_at": "2026-02-01T02:00:00Z",
+    "sequence": 0,
+    "group_id": "G001",
+    "event_id": "ENGINE-GOLDEN-001:G001:S1|P1|D1",
+    "description": "已批准更正单 ENGINE-GOLDEN-001 通过组 G001"
+  },
+  "sources": [
+    {
+      "kind": "base",
+      "type": "base",
+      "effective_from": "2025-12-31T16:00:00Z",
+      "value": 500
+    },
+    {
+      "kind": "correction_order",
+      "type": "correction_order",
+      "order_id": "ENGINE-GOLDEN-001",
+      "group_id": "G001",
+      "effective_at": "2026-02-01T02:00:00Z",
+      "sequence": 0,
+      "before_value": 500,
+      "after_value": 480,
+      "change_kind": "price_to_price",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "ENGINE-GOLDEN-001",
+        "effective_at": "2026-02-01T02:00:00Z",
+        "sequence": 0,
+        "group_id": "G001",
+        "event_id": "ENGINE-GOLDEN-001:G001:S1|P1|D1",
+        "description": "已批准更正单 ENGINE-GOLDEN-001 通过组 G001"
+      }
+    }
+  ],
+  "provenance_chain": [
+    {
+      "kind": "base",
+      "type": "base",
+      "effective_from": "2025-12-31T16:00:00Z",
+      "value": 500
+    },
+    {
+      "kind": "correction_order",
+      "type": "correction_order",
+      "order_id": "ENGINE-GOLDEN-001",
+      "group_id": "G001",
+      "effective_at": "2026-02-01T02:00:00Z",
+      "sequence": 0,
+      "before_value": 500,
+      "after_value": 480,
+      "change_kind": "price_to_price",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "ENGINE-GOLDEN-001",
+        "effective_at": "2026-02-01T02:00:00Z",
+        "sequence": 0,
+        "group_id": "G001",
+        "event_id": "ENGINE-GOLDEN-001:G001:S1|P1|D1",
+        "description": "已批准更正单 ENGINE-GOLDEN-001 通过组 G001"
+      }
+    }
+  ],
+  "applied_corrections": [
+    {
+      "kind": "correction_order",
+      "type": "correction_order",
+      "order_id": "ENGINE-GOLDEN-001",
+      "group_id": "G001",
+      "effective_at": "2026-02-01T02:00:00Z",
+      "sequence": 0,
+      "before_value": 500,
+      "after_value": 480,
+      "change_kind": "price_to_price",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "ENGINE-GOLDEN-001",
+        "effective_at": "2026-02-01T02:00:00Z",
+        "sequence": 0,
+        "group_id": "G001",
+        "event_id": "ENGINE-GOLDEN-001:G001:S1|P1|D1",
+        "description": "已批准更正单 ENGINE-GOLDEN-001 通过组 G001"
+      }
+    }
+  ],
+  "blocked_attempts": []
+}

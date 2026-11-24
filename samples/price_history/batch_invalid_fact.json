@@ -1,0 +1,26 @@
+{
+  "orders": [
+    {
+      "order_id": "CO-BAD-FACT",
+      "effective_at": "2026-01-24T10:00:00+08:00",
+      "sequence": 0,
+      "content": {
+        "schema": "native-groups-v1",
+        "groups": [
+          {
+            "group_id": "G-BAD-FACT",
+            "facts": [
+              {
+                "store_id": "S1",
+                "product_id": "P404",
+                "date_id": "2026-01-15",
+                "before": 1,
+                "after": 2
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

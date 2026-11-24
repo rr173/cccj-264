@@ -1,0 +1,35 @@
+{
+  "effective_from": "2026-01-01T00:00:00+08:00",
+  "prices": [
+    {
+      "store_id": "S1",
+      "product_id": "P100",
+      "date_id": "2026-01-15",
+      "value": 1000
+    },
+    {
+      "store_id": "S1",
+      "product_id": "P100",
+      "date_id": "2026-01-16",
+      "value": 1200
+    },
+    {
+      "store_id": "S1",
+      "product_id": "P200",
+      "date_id": "2026-01-15",
+      "value": "NOPRICE"
+    },
+    {
+      "store_id": "S2",
+      "product_id": "P100",
+      "date_id": "2026-01-15",
+      "value": 800
+    },
+    {
+      "store_id": "S2",
+      "product_id": "P200",
+      "date_id": "2026-01-15",
+      "value": 500
+    }
+  ]
+}

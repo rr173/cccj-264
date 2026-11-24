@@ -1,0 +1,48 @@
+{
+  "orders": [
+    {
+      "order_id": "CO-DUP-POS-A",
+      "effective_at": "2026-01-23T10:00:00+08:00",
+      "sequence": 7,
+      "content": {
+        "schema": "native-groups-v1",
+        "groups": [
+          {
+            "group_id": "G-A",
+            "facts": [
+              {
+                "store_id": "S2",
+                "product_id": "P100",
+                "date_id": "2026-01-15",
+                "before": 760,
+                "after": 755
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "order_id": "CO-DUP-POS-B",
+      "effective_at": "2026-01-23T10:00:00+08:00",
+      "sequence": 7,
+      "content": {
+        "schema": "native-groups-v1",
+        "groups": [
+          {
+            "group_id": "G-B",
+            "facts": [
+              {
+                "store_id": "S2",
+                "product_id": "P200",
+                "date_id": "2026-01-15",
+                "before": "NOPRICE",
+                "after": 499
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
