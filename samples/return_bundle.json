@@ -1,0 +1,387 @@
+{
+  "threshold": 100,
+  "ledger": [
+    {
+      "store_id": "S1",
+      "product_id": "P1",
+      "date_id": "D1",
+      "value": 500
+    },
+    {
+      "store_id": "S1",
+      "product_id": "P1",
+      "date_id": "D2",
+      "value": 500
+    },
+    {
+      "store_id": "S1",
+      "product_id": "P1",
+      "date_id": "D3",
+      "value": 500
+    },
+    {
+      "store_id": "S1",
+      "product_id": "P2",
+      "date_id": "D1",
+      "value": "NOPRICE"
+    },
+    {
+      "store_id": "S1",
+      "product_id": "P2",
+      "date_id": "D2",
+      "value": 200
+    },
+    {
+      "store_id": "S1",
+      "product_id": "P2",
+      "date_id": "D3",
+      "value": 200
+    },
+    {
+      "store_id": "S2",
+      "product_id": "P1",
+      "date_id": "D1",
+      "value": 800
+    },
+    {
+      "store_id": "S2",
+      "product_id": "P1",
+      "date_id": "D2",
+      "value": 800
+    },
+    {
+      "store_id": "S2",
+      "product_id": "P1",
+      "date_id": "D3",
+      "value": 800
+    },
+    {
+      "store_id": "S2",
+      "product_id": "P2",
+      "date_id": "D1",
+      "value": 300
+    },
+    {
+      "store_id": "S2",
+      "product_id": "P2",
+      "date_id": "D2",
+      "value": "NOPRICE"
+    },
+    {
+      "store_id": "S2",
+      "product_id": "P2",
+      "date_id": "D3",
+      "value": 300
+    }
+  ],
+  "manifests": {
+    "store": {
+      "axis_maps": {
+        "store": {
+          "S1": "S1",
+          "S2": "S2"
+        },
+        "product": {
+          "P1": "P1",
+          "P2": "P2"
+        },
+        "date": {
+          "D1": "D1",
+          "D2": "D2",
+          "D3": "D3"
+        }
+      },
+      "covered_cells": [
+        {
+          "row": "S1|P1",
+          "column": "D1",
+          "store_id": "S1",
+          "product_id": "P1",
+          "date_id": "D1"
+        },
+        {
+          "row": "S1|P1",
+          "column": "D2",
+          "store_id": "S1",
+          "product_id": "P1",
+          "date_id": "D2"
+        },
+        {
+          "row": "S1|P2",
+          "column": "D1",
+          "store_id": "S1",
+          "product_id": "P2",
+          "date_id": "D1"
+        },
+        {
+          "row": "S1|P2",
+          "column": "D2",
+          "store_id": "S1",
+          "product_id": "P2",
+          "date_id": "D2"
+        },
+        {
+          "row": "S2|P1",
+          "column": "D1",
+          "store_id": "S2",
+          "product_id": "P1",
+          "date_id": "D1"
+        },
+        {
+          "row": "S2|P1",
+          "column": "D2",
+          "store_id": "S2",
+          "product_id": "P1",
+          "date_id": "D2"
+        },
+        {
+          "row": "S2|P2",
+          "column": "D1",
+          "store_id": "S2",
+          "product_id": "P2",
+          "date_id": "D1"
+        },
+        {
+          "row": "S1|P1",
+          "column": "D3",
+          "store_id": "S1",
+          "product_id": "P1",
+          "date_id": "D3"
+        },
+        {
+          "row": "S2|P1",
+          "column": "D3",
+          "store_id": "S2",
+          "product_id": "P1",
+          "date_id": "D3"
+        },
+        {
+          "row": "S1|P2",
+          "column": "D3",
+          "store_id": "S1",
+          "product_id": "P2",
+          "date_id": "D3"
+        }
+      ]
+    },
+    "hq": {
+      "axis_maps": {
+        "store": {
+          "S1": "S1",
+          "S2": "S2"
+        },
+        "product": {
+          "P1": "P1",
+          "P2": "P2"
+        },
+        "date": {
+          "D1": "D1",
+          "D2": "D2",
+          "D3": "D3"
+        }
+      },
+      "covered_cells": [
+        {
+          "row": "P1|D1",
+          "column": "S1",
+          "store_id": "S1",
+          "product_id": "P1",
+          "date_id": "D1"
+        },
+        {
+          "row": "P1|D2",
+          "column": "S1",
+          "store_id": "S1",
+          "product_id": "P1",
+          "date_id": "D2"
+        },
+        {
+          "row": "P2|D2",
+          "column": "S1",
+          "store_id": "S1",
+          "product_id": "P2",
+          "date_id": "D2"
+        },
+        {
+          "row": "P1|D1",
+          "column": "S2",
+          "store_id": "S2",
+          "product_id": "P1",
+          "date_id": "D1"
+        },
+        {
+          "row": "P1|D2",
+          "column": "S2",
+          "store_id": "S2",
+          "product_id": "P1",
+          "date_id": "D2"
+        },
+        {
+          "row": "P2|D1",
+          "column": "S2",
+          "store_id": "S2",
+          "product_id": "P2",
+          "date_id": "D1"
+        },
+        {
+          "row": "P2|D2",
+          "column": "S2",
+          "store_id": "S2",
+          "product_id": "P2",
+          "date_id": "D2"
+        },
+        {
+          "row": "P1|D3",
+          "column": "S1",
+          "store_id": "S1",
+          "product_id": "P1",
+          "date_id": "D3"
+        },
+        {
+          "row": "P1|D3",
+          "column": "S2",
+          "store_id": "S2",
+          "product_id": "P1",
+          "date_id": "D3"
+        },
+        {
+          "row": "P2|D3",
+          "column": "S2",
+          "store_id": "S2",
+          "product_id": "P2",
+          "date_id": "D3"
+        }
+      ]
+    }
+  },
+  "returns": {
+    "store": {
+      "cells": [
+        {
+          "row": "S1|P1",
+          "column": "D1",
+          "value": 480,
+          "group": null
+        },
+        {
+          "row": "S1|P1",
+          "column": "D2",
+          "value": 700,
+          "group": "GA"
+        },
+        {
+          "row": "S1|P2",
+          "column": "D1",
+          "value": 150,
+          "group": null
+        },
+        {
+          "row": "S1|P2",
+          "column": "D2",
+          "value": 200,
+          "group": null
+        },
+        {
+          "row": "S2|P1",
+          "column": "D1",
+          "value": null,
+          "group": null
+        },
+        {
+          "row": "S2|P1",
+          "column": "D2",
+          "value": 820,
+          "group": null
+        },
+        {
+          "row": "S2|P2",
+          "column": "D1",
+          "value": "NOPRICE",
+          "group": null
+        },
+        {
+          "row": "S1|P1",
+          "column": "D3",
+          "value": 470,
+          "group": null
+        },
+        {
+          "row": "S2|P1",
+          "column": "D3",
+          "value": 600,
+          "group": "GB"
+        },
+        {
+          "row": "S1|P2",
+          "column": "D3",
+          "value": 190,
+          "group": "GB"
+        }
+      ]
+    },
+    "hq": {
+      "cells": [
+        {
+          "row": "P1|D1",
+          "column": "S1",
+          "value": null,
+          "group": null
+        },
+        {
+          "row": "P1|D2",
+          "column": "S1",
+          "value": 700,
+          "group": "GX"
+        },
+        {
+          "row": "P2|D2",
+          "column": "S1",
+          "value": 200,
+          "group": null
+        },
+        {
+          "row": "P1|D1",
+          "column": "S2",
+          "value": 950,
+          "group": "GY"
+        },
+        {
+          "row": "P1|D2",
+          "column": "S2",
+          "value": 820,
+          "group": "GY"
+        },
+        {
+          "row": "P2|D1",
+          "column": "S2",
+          "value": "NOPRICE",
+          "group": null
+        },
+        {
+          "row": "P2|D2",
+          "column": "S2",
+          "value": "NOPRICE",
+          "group": null
+        },
+        {
+          "row": "P1|D3",
+          "column": "S1",
+          "value": 460,
+          "group": null
+        },
+        {
+          "row": "P1|D3",
+          "column": "S2",
+          "value": 600,
+          "group": null
+        },
+        {
+          "row": "P2|D3",
+          "column": "S2",
+          "value": 290,
+          "group": null
+        }
+      ]
+    }
+  }
+}
