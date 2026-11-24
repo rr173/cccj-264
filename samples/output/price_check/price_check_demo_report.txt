@@ -1,0 +1,30 @@
+# 成交价核对合成样例
+底档：/workspace/samples/price_history/base.json
+已批准更正单：/workspace/samples/price_check/corrections.json
+成交明细：/workspace/samples/transactions/transactions.jsonl
+样例台账：/workspace/samples/output/price_check/ledger.json
+
+已整份拒绝 transactions_invalid_duplicate_line_id.jsonl（相同成交行编号出现多次；共 1 项错误），未生成报告：
+  - 成交行编号重复: TX-DUP 出现在第 1, 2 行；整份输入拒绝
+已整份拒绝 transactions_invalid_fields.jsonl（字段缺失或值不合法；共 4 项错误），未生成报告：
+  - 第 1 行: 缺少字段 store_id
+  - 第 2 行: quantity 必须是正整数（件数 > 0），实际: 0
+  - 第 3 行: unit_price_fen 必须是非负整数分，实际: -1
+  - 第 4 行: transaction_at必须带时区偏移，实际为无时区时间: '2026-01-05T09:00:00'
+已整份拒绝 transactions_invalid_json.jsonl（坏 JSON；共 1 项错误），未生成报告：
+  - 第 2 行: JSON 格式错误: Expecting ',' delimiter
+
+### 校验过的关键事实
+- TX-1001/1002/1003：同一事实在 CO-001 生效前、生效瞬间、生效后各有成交；
+  TX-1001 一致=1000，TX-1002 多收（期望 950，+30×2），TX-1003 少收（-20）。
+- TX-1004：同一经营日期 ID，按 2026-01-12 成交时点取 900，来源链含 CO-001、CO-002。
+- TX-1006/1007：明确无价（底档/更正后），未计入多收或少收。
+- TX-1008：CO-005 生效前仍按 500 计，多收 20。
+- TX-1009：缺少历史；TX-1010：底档生效前成交；二者均无期望价与分差。
+- TX-1011：同一时点 seq0+seq1 均已生效，期望 870；来源为 CO-007。
+- 汇总：一致 2、多收 5（+160分）、少收 2（-80分）、明确无价 2、缺少历史 1、底档前 1；净分差 +80分。
+- 重复运行报告逐字节一致；三份无效 JSONL 均整份拒绝且不产生任何报告。
+
+[输出] 文字报告：/workspace/samples/output/price_check/transaction_price_check.txt
+[输出] 机器可读：/workspace/samples/output/price_check/transaction_price_check.json
+# 全部成交价核对断言通过。

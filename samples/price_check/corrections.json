@@ -1,0 +1,110 @@
+{
+  "delivery": "price-check-demo-corrections",
+  "orders": [
+    {
+      "order_id": "CO-001-EARLY",
+      "effective_at": "2026-01-05T10:00:00+08:00",
+      "sequence": 0,
+      "content": {
+        "groups": [
+          {
+            "group_id": "G-EARLY",
+            "facts": [
+              {"store_id": "S1", "product_id": "P100", "date_id": "2026-01-15", "before": 1000, "after": 950}
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "order_id": "CO-002-CHAIN",
+      "effective_at": "2026-01-10T10:00:00+08:00",
+      "sequence": 0,
+      "content": {
+        "groups": [
+          {
+            "group_id": "G-CHAIN",
+            "facts": [
+              {"store_id": "S1", "product_id": "P100", "date_id": "2026-01-15", "before": 950, "after": 900}
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "order_id": "CO-003-B-UPDATE",
+      "effective_at": "2026-01-12T10:00:00+08:00",
+      "sequence": 0,
+      "content": {
+        "groups": [
+          {
+            "group_id": "G-B-OK",
+            "facts": [
+              {"store_id": "S1", "product_id": "P100", "date_id": "2026-01-16", "before": 1200, "after": 1150}
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "order_id": "CO-004-S2",
+      "effective_at": "2026-01-15T10:00:00+08:00",
+      "sequence": 0,
+      "content": {
+        "groups": [
+          {
+            "group_id": "G-INDEPENDENT-S2",
+            "facts": [
+              {"store_id": "S2", "product_id": "P100", "date_id": "2026-01-15", "before": 800, "after": 760}
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "order_id": "CO-005-TO-NOPRICE",
+      "effective_at": "2026-01-18T10:00:00+08:00",
+      "sequence": 0,
+      "content": {
+        "groups": [
+          {
+            "group_id": "G-NOPRICE",
+            "facts": [
+              {"store_id": "S2", "product_id": "P200", "date_id": "2026-01-15", "before": 500, "after": "NOPRICE"}
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "order_id": "CO-006-SEQ0",
+      "effective_at": "2026-01-20T15:00:00+08:00",
+      "sequence": 0,
+      "content": {
+        "groups": [
+          {
+            "group_id": "G-SEQ0",
+            "facts": [
+              {"store_id": "S1", "product_id": "P100", "date_id": "2026-01-15", "before": 900, "after": 880}
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "order_id": "CO-007-SEQ1",
+      "effective_at": "2026-01-20T15:00:00+08:00",
+      "sequence": 1,
+      "content": {
+        "groups": [
+          {
+            "group_id": "G-SEQ1",
+            "facts": [
+              {"store_id": "S1", "product_id": "P100", "date_id": "2026-01-15", "before": 880, "after": 870}
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

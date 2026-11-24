@@ -15,6 +15,10 @@ price_correction/
   price_history_cli.py   # 兼容别名（调用 history_cli.main）
   run_history_demo.py    # 台账可复跑合成样例与断言
   test_history_ledger.py # 台账规则单元测试
+  price_check.py         # 成交价核对：JSONL 严格校验、时点取价、逐笔裁定、汇总、报告
+  price_check_cli.py     # 成交价核对 CLI：--db / --transactions / --output-dir
+  run_price_check_demo.py # 成交价核对可复跑合成样例与断言
+  test_price_check.py    # 成交价核对规则单元测试
   sample_data.py         # 双视图合成样例（同一底档，门店形/总部形两套清单与回件）
   run_demo.py            # 端到端演示 + 结果断言 + 无效回件变体
   export_sample.py       # 把合成样例导出为文件式回件包 JSON
@@ -24,8 +28,11 @@ samples/
   return_bundle.json          # 有效回件包（导出）
   return_bundle_invalid.json  # 无效回件包（范围外签值）
   price_history/              # 台账样例底档与乱序/重复/无效投递批
+  price_check/corrections.json # 成交价核对样例的已批准更正单投递批
+  transactions/               # 成交明细 JSONL 样例（1 份有效 + 3 份无效变体）
   samples/output/...          # 更正单 JSON、文字报告、拒单错误
-  output/price_history/      # 台账 JSON、样例报告和查询来源 JSON
+  output/price_history/       # 台账 JSON、样例报告和查询来源 JSON
+  output/price_check/         # 成交价核对台账、报告 JSON/文字、演示报告
 ```
 
 ## 业务规则到实现的对应
@@ -170,6 +177,89 @@ python3 -I test_history_ledger.py
 `../samples/output/price_history/history_demo_report.txt`，查询来源 JSON 位于
 `../samples/output/price_history/queries/`。
 
+## 成交价核对（新增）
+
+门店财务拿到收银成交明细后，用**已初始化的价格历史台账**核对每笔促销商品是否按
+交易发生时已经生效的价格结算。实现位于 `price_check.py`，CLI 为
+`price_check_cli.py`。
+
+### 成交明细 schema（JSONL）
+
+每行一笔成交，按 UTF-8 编码（允许 BOM），字段固定为：
+
+```json
+{"line_id":"TX-1002","store_id":"S1","product_id":"P100","date_id":"2026-01-15",
+ "transaction_at":"2026-01-05T02:00:00Z","quantity":2,"unit_price_fen":980}
+```
+
+| 字段 | 规则 |
+| --- | --- |
+| `line_id` | 非空字符串/整数；整份输入内**必须唯一** |
+| `store_id` / `product_id` / `date_id` | 非空字符串/整数；`date_id` 是价格事实的经营日期**维度键**，不是查询时间 |
+| `transaction_at` | 带时区偏移的 ISO 8601 瞬时（`Z` 等价 `+00:00`）；纳秒时间同样接受 |
+| `quantity` | 正整数件数（`true`/`1.0`/`0`/负数均非法） |
+| `unit_price_fen` | 非负整数分（`true`/`1.0`/负数均非法） |
+
+校验在内存中**收集全部行级错误**后整份拒绝：重复 `line_id`（即使其中一次还有其他
+错误也会报）、缺字段、多/错类型、无时区时间、坏 JSON、JSON 内重复键、`NaN`、
+空行、非对象行、空文件。CLI 退出码 2 且不写任何输出文件；调用方拿不到部分报告。
+
+### 逐笔核对口径
+
+* 只用 `transaction_at` 查台账（等价于台账 `query_price(..., at=transaction_at)`）；
+  不使用 `date_id` 当作查询日期，也不使用当前/最新价格。更正单
+  `effective_at == transaction_at` 视为已生效（台账比较为 `<=`）。
+* 六类结果，后三类**没有期望价，也绝不计算或归入多收/少收**：
+
+| status | 含义 |
+| --- | --- |
+| `MATCH` | 价格一致 |
+| `OVERCHARGED` | 多收：实际单价 > 时点有效单价 |
+| `UNDERCHARGED` | 少收：实际单价 < 时点有效单价 |
+| `NO_PRICE_AT_TIME` | 当时明确无价（`NOPRICE`） |
+| `MISSING_HISTORY` | 底档和已生效更正中都没有该事实 |
+| `BEFORE_BASE_EFFECTIVE` | 成交时点早于底档 `effective_from` |
+
+* 有价成交输出 `unit_difference_fen = 实际单价 - 期望单价`、
+  `total_difference_fen = 单件分差 × quantity`，并保留成交时点（输入原文 + UTC）、
+  期望价格、期望含件数金额、`source`（直接来源）和 `provenance_chain`
+  （底档 → 各更正单的完整形成链）。
+* 汇总 `summary` 与 `by_fact`（门店/商品/经营日期）都分别给出六类行数、有价行数、
+  多收行数与金额、少收行数与金额、净分差和绝对额合计。净分差 = 多收合计 − 少收合计，
+  在逐笔裁定之后才计算；逐笔结果本身不因净额而合并或抵消。
+* 报告不含时间戳等易变字段；同一台账快照 + 同一输入产生逐字节稳定的文本和 JSON。
+
+### 成交价核对 CLI
+
+```bash
+# 可复跑合成样例（重建样例台账、逐笔断言、汇总断言、无效输入断言、稳定报告）
+python3 -I run_price_check_demo.py
+
+# 核对（--output-dir 成功时写 transaction_price_check.{json,txt}）
+python3 -I price_check_cli.py \
+  --db ../samples/output/price_check/ledger.json \
+  --transactions ../samples/transactions/transactions.jsonl \
+  --output-dir ../samples/output/price_check
+
+# 只看 JSON
+python3 -I price_check_cli.py --db LEDGER --transactions TX.jsonl --json
+
+# 单元测试（17 项）
+python3 -I test_price_check.py
+```
+
+退出码：`0` 核对完成（存在多收/少收仍是 0，报告即证据）；`2` 成交明细无效（零输出）；
+`3` 台账缺失、未初始化或无法读取。注意：`price_check.py` 是库模块，直接运行请用
+`price_check_cli.py`（隔离模式下 `python3 -I` 不把脚本目录加入导入路径）。
+
+样例台账由底档 `../samples/price_history/base.json` 与
+`../samples/price_check/corrections.json` 的 7 笔更正单初始化；成交明细
+`../samples/transactions/transactions.jsonl` 共 13 行，覆盖：同一事实在更正生效前/
+生效瞬间/生效后有成交、同一经营日期在多次更正后价格不同、多收 5 行（+160分）、
+少收 2 行（−80分）、价格一致 2 行、明确无价 2 行（底档无价与更正后无价）、
+缺少历史 1 行、底档生效前成交 1 行。无效变体为
+`transactions_invalid_{duplicate_line_id,fields,json}.jsonl`。
+
 ## 输入 JSON schema（cli.py）
 
 ```json
@@ -222,6 +312,10 @@ python3 -I cli.py --input ../samples/return_bundle.json \
                   --output-dir ../samples/output/cli_ok
 python3 -I cli.py --input ../samples/return_bundle_invalid.json \
                   --output-dir ../samples/output/cli_bad
+
+# 成交价核对（17 项单元测试 + 可复跑样例）
+python3 -I test_price_check.py
+python3 -I run_price_check_demo.py
 ```
 
 ## 合成样例覆盖的情形
@@ -230,3 +324,7 @@ python3 -I cli.py --input ../samples/return_bundle_invalid.json \
 组内多事实连带通过、另一方未发放的小额单签）、2 个零变动通过组（签回分值、
 签回无价）、3 个拒发组（冲突、未发放方缺双签、组内一项缺签连累同组事实）。
 无效变体覆盖坏标签、事实重复、漏交、范围外签值、一签多组、非法签值。
+
+成交价核对样例另覆盖：更正生效前后与生效瞬间的成交、同一经营日期在更正链上
+不同时点的价格、多收/少收/一致/明确无价（底档与更正后）/缺少历史/底档前成交、
+汇总分列与净分差、三份无效 JSONL 整份拒绝、重复运行报告字节稳定。

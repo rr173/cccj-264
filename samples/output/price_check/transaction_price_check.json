@@ -1,0 +1,1094 @@
+{
+  "schema": "transaction-price-check-v1",
+  "input": {
+    "path": "/workspace/samples/transactions/transactions.jsonl",
+    "sha256": "083e01d246d3abe3d8b47ac82ddc0b1fee73077bf1d0feda5a28a139129e3aa5",
+    "line_count": 13
+  },
+  "ledger": {
+    "path": "/workspace/samples/output/price_check/ledger.json",
+    "base_effective_from": "2025-12-31T16:00:00Z",
+    "base_effective_from_input": "2026-01-01T00:00:00+08:00",
+    "order_count": 7,
+    "price_event_count": 7
+  },
+  "lines": [
+    {
+      "line_id": "TX-1001",
+      "input_line": 1,
+      "store_id": "S1",
+      "product_id": "P100",
+      "date_id": "2026-01-15",
+      "transaction_at": {
+        "input": "2026-01-05T09:59:59+08:00",
+        "utc": "2026-01-05T01:59:59Z"
+      },
+      "quantity": 1,
+      "actual_unit_price_fen": 1000,
+      "actual_total_fen": 1000,
+      "ledger_query_status": "OK",
+      "expected_price_state": "priced",
+      "expected_unit_price_fen": 1000,
+      "expected_total_fen": 1000,
+      "unit_difference_fen": 0,
+      "total_difference_fen": 0,
+      "difference_direction": "equal",
+      "source": {
+        "type": "base",
+        "kind": "base",
+        "effective_from": "2025-12-31T16:00:00Z",
+        "effective_from_input": "2026-01-01T00:00:00+08:00",
+        "description": "初始底档起始状态"
+      },
+      "provenance_chain": [
+        {
+          "kind": "base",
+          "type": "base",
+          "effective_from": "2025-12-31T16:00:00Z",
+          "value": 1000
+        }
+      ],
+      "status": "MATCH",
+      "status_label": "价格一致",
+      "expected_price_display": "1000分",
+      "message": "实际成交单价与交易时点有效价格一致"
+    },
+    {
+      "line_id": "TX-1002",
+      "input_line": 2,
+      "store_id": "S1",
+      "product_id": "P100",
+      "date_id": "2026-01-15",
+      "transaction_at": {
+        "input": "2026-01-05T02:00:00Z",
+        "utc": "2026-01-05T02:00:00Z"
+      },
+      "quantity": 2,
+      "actual_unit_price_fen": 980,
+      "actual_total_fen": 1960,
+      "ledger_query_status": "OK",
+      "expected_price_state": "priced",
+      "expected_unit_price_fen": 950,
+      "expected_total_fen": 1900,
+      "unit_difference_fen": 30,
+      "total_difference_fen": 60,
+      "difference_direction": "overcharge",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "CO-001-EARLY",
+        "effective_at": "2026-01-05T02:00:00Z",
+        "sequence": 0,
+        "group_id": "G-EARLY",
+        "event_id": "CO-001-EARLY:G-EARLY:S1|P100|2026-01-15",
+        "description": "已批准更正单 CO-001-EARLY 通过组 G-EARLY"
+      },
+      "provenance_chain": [
+        {
+          "kind": "base",
+          "type": "base",
+          "effective_from": "2025-12-31T16:00:00Z",
+          "value": 1000
+        },
+        {
+          "kind": "correction_order",
+          "type": "correction_order",
+          "order_id": "CO-001-EARLY",
+          "group_id": "G-EARLY",
+          "effective_at": "2026-01-05T02:00:00Z",
+          "sequence": 0,
+          "before_value": 1000,
+          "after_value": 950,
+          "change_kind": "price_to_price",
+          "source": {
+            "type": "correction_order",
+            "kind": "correction_order",
+            "order_id": "CO-001-EARLY",
+            "effective_at": "2026-01-05T02:00:00Z",
+            "sequence": 0,
+            "group_id": "G-EARLY",
+            "event_id": "CO-001-EARLY:G-EARLY:S1|P100|2026-01-15",
+            "description": "已批准更正单 CO-001-EARLY 通过组 G-EARLY"
+          }
+        }
+      ],
+      "status": "OVERCHARGED",
+      "status_label": "多收",
+      "expected_price_display": "950分",
+      "message": "实际成交单价高于交易时点有效价格 30分/件"
+    },
+    {
+      "line_id": "TX-1003",
+      "input_line": 3,
+      "store_id": "S1",
+      "product_id": "P100",
+      "date_id": "2026-01-15",
+      "transaction_at": {
+        "input": "2026-01-08T12:00:00+08:00",
+        "utc": "2026-01-08T04:00:00Z"
+      },
+      "quantity": 1,
+      "actual_unit_price_fen": 930,
+      "actual_total_fen": 930,
+      "ledger_query_status": "OK",
+      "expected_price_state": "priced",
+      "expected_unit_price_fen": 950,
+      "expected_total_fen": 950,
+      "unit_difference_fen": -20,
+      "total_difference_fen": -20,
+      "difference_direction": "undercharge",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "CO-001-EARLY",
+        "effective_at": "2026-01-05T02:00:00Z",
+        "sequence": 0,
+        "group_id": "G-EARLY",
+        "event_id": "CO-001-EARLY:G-EARLY:S1|P100|2026-01-15",
+        "description": "已批准更正单 CO-001-EARLY 通过组 G-EARLY"
+      },
+      "provenance_chain": [
+        {
+          "kind": "base",
+          "type": "base",
+          "effective_from": "2025-12-31T16:00:00Z",
+          "value": 1000
+        },
+        {
+          "kind": "correction_order",
+          "type": "correction_order",
+          "order_id": "CO-001-EARLY",
+          "group_id": "G-EARLY",
+          "effective_at": "2026-01-05T02:00:00Z",
+          "sequence": 0,
+          "before_value": 1000,
+          "after_value": 950,
+          "change_kind": "price_to_price",
+          "source": {
+            "type": "correction_order",
+            "kind": "correction_order",
+            "order_id": "CO-001-EARLY",
+            "effective_at": "2026-01-05T02:00:00Z",
+            "sequence": 0,
+            "group_id": "G-EARLY",
+            "event_id": "CO-001-EARLY:G-EARLY:S1|P100|2026-01-15",
+            "description": "已批准更正单 CO-001-EARLY 通过组 G-EARLY"
+          }
+        }
+      ],
+      "status": "UNDERCHARGED",
+      "status_label": "少收",
+      "expected_price_display": "950分",
+      "message": "实际成交单价低于交易时点有效价格 20分/件"
+    },
+    {
+      "line_id": "TX-1004",
+      "input_line": 4,
+      "store_id": "S1",
+      "product_id": "P100",
+      "date_id": "2026-01-15",
+      "transaction_at": {
+        "input": "2026-01-12T12:00:00+08:00",
+        "utc": "2026-01-12T04:00:00Z"
+      },
+      "quantity": 3,
+      "actual_unit_price_fen": 900,
+      "actual_total_fen": 2700,
+      "ledger_query_status": "OK",
+      "expected_price_state": "priced",
+      "expected_unit_price_fen": 900,
+      "expected_total_fen": 2700,
+      "unit_difference_fen": 0,
+      "total_difference_fen": 0,
+      "difference_direction": "equal",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "CO-002-CHAIN",
+        "effective_at": "2026-01-10T02:00:00Z",
+        "sequence": 0,
+        "group_id": "G-CHAIN",
+        "event_id": "CO-002-CHAIN:G-CHAIN:S1|P100|2026-01-15",
+        "description": "已批准更正单 CO-002-CHAIN 通过组 G-CHAIN"
+      },
+      "provenance_chain": [
+        {
+          "kind": "base",
+          "type": "base",
+          "effective_from": "2025-12-31T16:00:00Z",
+          "value": 1000
+        },
+        {
+          "kind": "correction_order",
+          "type": "correction_order",
+          "order_id": "CO-001-EARLY",
+          "group_id": "G-EARLY",
+          "effective_at": "2026-01-05T02:00:00Z",
+          "sequence": 0,
+          "before_value": 1000,
+          "after_value": 950,
+          "change_kind": "price_to_price",
+          "source": {
+            "type": "correction_order",
+            "kind": "correction_order",
+            "order_id": "CO-001-EARLY",
+            "effective_at": "2026-01-05T02:00:00Z",
+            "sequence": 0,
+            "group_id": "G-EARLY",
+            "event_id": "CO-001-EARLY:G-EARLY:S1|P100|2026-01-15",
+            "description": "已批准更正单 CO-001-EARLY 通过组 G-EARLY"
+          }
+        },
+        {
+          "kind": "correction_order",
+          "type": "correction_order",
+          "order_id": "CO-002-CHAIN",
+          "group_id": "G-CHAIN",
+          "effective_at": "2026-01-10T02:00:00Z",
+          "sequence": 0,
+          "before_value": 950,
+          "after_value": 900,
+          "change_kind": "price_to_price",
+          "source": {
+            "type": "correction_order",
+            "kind": "correction_order",
+            "order_id": "CO-002-CHAIN",
+            "effective_at": "2026-01-10T02:00:00Z",
+            "sequence": 0,
+            "group_id": "G-CHAIN",
+            "event_id": "CO-002-CHAIN:G-CHAIN:S1|P100|2026-01-15",
+            "description": "已批准更正单 CO-002-CHAIN 通过组 G-CHAIN"
+          }
+        }
+      ],
+      "status": "MATCH",
+      "status_label": "价格一致",
+      "expected_price_display": "900分",
+      "message": "实际成交单价与交易时点有效价格一致"
+    },
+    {
+      "line_id": "TX-1005",
+      "input_line": 5,
+      "store_id": "S1",
+      "product_id": "P100",
+      "date_id": "2026-01-16",
+      "transaction_at": {
+        "input": "2026-01-16T12:00:00+08:00",
+        "utc": "2026-01-16T04:00:00Z"
+      },
+      "quantity": 1,
+      "actual_unit_price_fen": 1180,
+      "actual_total_fen": 1180,
+      "ledger_query_status": "OK",
+      "expected_price_state": "priced",
+      "expected_unit_price_fen": 1150,
+      "expected_total_fen": 1150,
+      "unit_difference_fen": 30,
+      "total_difference_fen": 30,
+      "difference_direction": "overcharge",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "CO-003-B-UPDATE",
+        "effective_at": "2026-01-12T02:00:00Z",
+        "sequence": 0,
+        "group_id": "G-B-OK",
+        "event_id": "CO-003-B-UPDATE:G-B-OK:S1|P100|2026-01-16",
+        "description": "已批准更正单 CO-003-B-UPDATE 通过组 G-B-OK"
+      },
+      "provenance_chain": [
+        {
+          "kind": "base",
+          "type": "base",
+          "effective_from": "2025-12-31T16:00:00Z",
+          "value": 1200
+        },
+        {
+          "kind": "correction_order",
+          "type": "correction_order",
+          "order_id": "CO-003-B-UPDATE",
+          "group_id": "G-B-OK",
+          "effective_at": "2026-01-12T02:00:00Z",
+          "sequence": 0,
+          "before_value": 1200,
+          "after_value": 1150,
+          "change_kind": "price_to_price",
+          "source": {
+            "type": "correction_order",
+            "kind": "correction_order",
+            "order_id": "CO-003-B-UPDATE",
+            "effective_at": "2026-01-12T02:00:00Z",
+            "sequence": 0,
+            "group_id": "G-B-OK",
+            "event_id": "CO-003-B-UPDATE:G-B-OK:S1|P100|2026-01-16",
+            "description": "已批准更正单 CO-003-B-UPDATE 通过组 G-B-OK"
+          }
+        }
+      ],
+      "status": "OVERCHARGED",
+      "status_label": "多收",
+      "expected_price_display": "1150分",
+      "message": "实际成交单价高于交易时点有效价格 30分/件"
+    },
+    {
+      "line_id": "TX-1006",
+      "input_line": 6,
+      "store_id": "S1",
+      "product_id": "P200",
+      "date_id": "2026-01-15",
+      "transaction_at": {
+        "input": "2026-01-10T12:00:00+08:00",
+        "utc": "2026-01-10T04:00:00Z"
+      },
+      "quantity": 1,
+      "actual_unit_price_fen": 500,
+      "actual_total_fen": 500,
+      "ledger_query_status": "NO_PRICE",
+      "expected_price_state": "explicit_no_price",
+      "expected_unit_price_fen": null,
+      "expected_total_fen": null,
+      "unit_difference_fen": null,
+      "total_difference_fen": null,
+      "difference_direction": null,
+      "source": {
+        "type": "base",
+        "kind": "base",
+        "effective_from": "2025-12-31T16:00:00Z",
+        "effective_from_input": "2026-01-01T00:00:00+08:00",
+        "description": "初始底档起始状态"
+      },
+      "provenance_chain": [
+        {
+          "kind": "base",
+          "type": "base",
+          "effective_from": "2025-12-31T16:00:00Z",
+          "value": "NOPRICE"
+        }
+      ],
+      "status": "NO_PRICE_AT_TIME",
+      "status_label": "当时明确无价",
+      "expected_price_display": "无价（NOPRICE）",
+      "message": "交易时点该门店/商品/经营日期在台账中为明确无价（NOPRICE）；不是缺少历史，也不计算多收或少收"
+    },
+    {
+      "line_id": "TX-1007",
+      "input_line": 7,
+      "store_id": "S2",
+      "product_id": "P200",
+      "date_id": "2026-01-15",
+      "transaction_at": {
+        "input": "2026-01-19T12:00:00+08:00",
+        "utc": "2026-01-19T04:00:00Z"
+      },
+      "quantity": 2,
+      "actual_unit_price_fen": 480,
+      "actual_total_fen": 960,
+      "ledger_query_status": "NO_PRICE",
+      "expected_price_state": "explicit_no_price",
+      "expected_unit_price_fen": null,
+      "expected_total_fen": null,
+      "unit_difference_fen": null,
+      "total_difference_fen": null,
+      "difference_direction": null,
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "CO-005-TO-NOPRICE",
+        "effective_at": "2026-01-18T02:00:00Z",
+        "sequence": 0,
+        "group_id": "G-NOPRICE",
+        "event_id": "CO-005-TO-NOPRICE:G-NOPRICE:S2|P200|2026-01-15",
+        "description": "已批准更正单 CO-005-TO-NOPRICE 通过组 G-NOPRICE"
+      },
+      "provenance_chain": [
+        {
+          "kind": "base",
+          "type": "base",
+          "effective_from": "2025-12-31T16:00:00Z",
+          "value": 500
+        },
+        {
+          "kind": "correction_order",
+          "type": "correction_order",
+          "order_id": "CO-005-TO-NOPRICE",
+          "group_id": "G-NOPRICE",
+          "effective_at": "2026-01-18T02:00:00Z",
+          "sequence": 0,
+          "before_value": 500,
+          "after_value": "NOPRICE",
+          "change_kind": "to_noprice",
+          "source": {
+            "type": "correction_order",
+            "kind": "correction_order",
+            "order_id": "CO-005-TO-NOPRICE",
+            "effective_at": "2026-01-18T02:00:00Z",
+            "sequence": 0,
+            "group_id": "G-NOPRICE",
+            "event_id": "CO-005-TO-NOPRICE:G-NOPRICE:S2|P200|2026-01-15",
+            "description": "已批准更正单 CO-005-TO-NOPRICE 通过组 G-NOPRICE"
+          }
+        }
+      ],
+      "status": "NO_PRICE_AT_TIME",
+      "status_label": "当时明确无价",
+      "expected_price_display": "无价（NOPRICE）",
+      "message": "交易时点该门店/商品/经营日期在台账中为明确无价（NOPRICE）；不是缺少历史，也不计算多收或少收"
+    },
+    {
+      "line_id": "TX-1008",
+      "input_line": 8,
+      "store_id": "S2",
+      "product_id": "P200",
+      "date_id": "2026-01-15",
+      "transaction_at": {
+        "input": "2026-01-17T12:00:00+08:00",
+        "utc": "2026-01-17T04:00:00Z"
+      },
+      "quantity": 1,
+      "actual_unit_price_fen": 520,
+      "actual_total_fen": 520,
+      "ledger_query_status": "OK",
+      "expected_price_state": "priced",
+      "expected_unit_price_fen": 500,
+      "expected_total_fen": 500,
+      "unit_difference_fen": 20,
+      "total_difference_fen": 20,
+      "difference_direction": "overcharge",
+      "source": {
+        "type": "base",
+        "kind": "base",
+        "effective_from": "2025-12-31T16:00:00Z",
+        "effective_from_input": "2026-01-01T00:00:00+08:00",
+        "description": "初始底档起始状态"
+      },
+      "provenance_chain": [
+        {
+          "kind": "base",
+          "type": "base",
+          "effective_from": "2025-12-31T16:00:00Z",
+          "value": 500
+        }
+      ],
+      "status": "OVERCHARGED",
+      "status_label": "多收",
+      "expected_price_display": "500分",
+      "message": "实际成交单价高于交易时点有效价格 20分/件"
+    },
+    {
+      "line_id": "TX-1009",
+      "input_line": 9,
+      "store_id": "S1",
+      "product_id": "P999",
+      "date_id": "2026-01-15",
+      "transaction_at": {
+        "input": "2026-01-10T12:00:00+08:00",
+        "utc": "2026-01-10T04:00:00Z"
+      },
+      "quantity": 1,
+      "actual_unit_price_fen": 999,
+      "actual_total_fen": 999,
+      "ledger_query_status": "MISSING_HISTORY",
+      "expected_price_state": "missing_history",
+      "expected_unit_price_fen": null,
+      "expected_total_fen": null,
+      "unit_difference_fen": null,
+      "total_difference_fen": null,
+      "difference_direction": null,
+      "source": null,
+      "provenance_chain": [],
+      "status": "MISSING_HISTORY",
+      "status_label": "缺少历史",
+      "expected_price_display": "无（缺少历史）",
+      "message": "底档和交易时点前已生效的更正中均无该事实；缺少历史记录，不是明确无价，也不计算多收或少收"
+    },
+    {
+      "line_id": "TX-1010",
+      "input_line": 10,
+      "store_id": "S1",
+      "product_id": "P100",
+      "date_id": "2026-01-15",
+      "transaction_at": {
+        "input": "2025-12-31T23:30:00+08:00",
+        "utc": "2025-12-31T15:30:00Z"
+      },
+      "quantity": 1,
+      "actual_unit_price_fen": 1000,
+      "actual_total_fen": 1000,
+      "ledger_query_status": "NO_HISTORY_BEFORE_BASE",
+      "expected_price_state": "no_history_before_base",
+      "expected_unit_price_fen": null,
+      "expected_total_fen": null,
+      "unit_difference_fen": null,
+      "total_difference_fen": null,
+      "difference_direction": null,
+      "source": null,
+      "provenance_chain": [],
+      "status": "BEFORE_BASE_EFFECTIVE",
+      "status_label": "底档尚未生效",
+      "expected_price_display": "无（底档尚未生效）",
+      "message": "成交时点 2025-12-31T23:30:00+08:00（UTC 2025-12-31T15:30:00Z）早于底档生效时点 2026-01-01T00:00:00+08:00；此前尚无价格历史，不计算多收或少收"
+    },
+    {
+      "line_id": "TX-1011",
+      "input_line": 11,
+      "store_id": "S1",
+      "product_id": "P100",
+      "date_id": "2026-01-15",
+      "transaction_at": {
+        "input": "2026-01-20T15:00:00+08:00",
+        "utc": "2026-01-20T07:00:00Z"
+      },
+      "quantity": 2,
+      "actual_unit_price_fen": 880,
+      "actual_total_fen": 1760,
+      "ledger_query_status": "OK",
+      "expected_price_state": "priced",
+      "expected_unit_price_fen": 870,
+      "expected_total_fen": 1740,
+      "unit_difference_fen": 10,
+      "total_difference_fen": 20,
+      "difference_direction": "overcharge",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "CO-007-SEQ1",
+        "effective_at": "2026-01-20T07:00:00Z",
+        "sequence": 1,
+        "group_id": "G-SEQ1",
+        "event_id": "CO-007-SEQ1:G-SEQ1:S1|P100|2026-01-15",
+        "description": "已批准更正单 CO-007-SEQ1 通过组 G-SEQ1"
+      },
+      "provenance_chain": [
+        {
+          "kind": "base",
+          "type": "base",
+          "effective_from": "2025-12-31T16:00:00Z",
+          "value": 1000
+        },
+        {
+          "kind": "correction_order",
+          "type": "correction_order",
+          "order_id": "CO-001-EARLY",
+          "group_id": "G-EARLY",
+          "effective_at": "2026-01-05T02:00:00Z",
+          "sequence": 0,
+          "before_value": 1000,
+          "after_value": 950,
+          "change_kind": "price_to_price",
+          "source": {
+            "type": "correction_order",
+            "kind": "correction_order",
+            "order_id": "CO-001-EARLY",
+            "effective_at": "2026-01-05T02:00:00Z",
+            "sequence": 0,
+            "group_id": "G-EARLY",
+            "event_id": "CO-001-EARLY:G-EARLY:S1|P100|2026-01-15",
+            "description": "已批准更正单 CO-001-EARLY 通过组 G-EARLY"
+          }
+        },
+        {
+          "kind": "correction_order",
+          "type": "correction_order",
+          "order_id": "CO-002-CHAIN",
+          "group_id": "G-CHAIN",
+          "effective_at": "2026-01-10T02:00:00Z",
+          "sequence": 0,
+          "before_value": 950,
+          "after_value": 900,
+          "change_kind": "price_to_price",
+          "source": {
+            "type": "correction_order",
+            "kind": "correction_order",
+            "order_id": "CO-002-CHAIN",
+            "effective_at": "2026-01-10T02:00:00Z",
+            "sequence": 0,
+            "group_id": "G-CHAIN",
+            "event_id": "CO-002-CHAIN:G-CHAIN:S1|P100|2026-01-15",
+            "description": "已批准更正单 CO-002-CHAIN 通过组 G-CHAIN"
+          }
+        },
+        {
+          "kind": "correction_order",
+          "type": "correction_order",
+          "order_id": "CO-006-SEQ0",
+          "group_id": "G-SEQ0",
+          "effective_at": "2026-01-20T07:00:00Z",
+          "sequence": 0,
+          "before_value": 900,
+          "after_value": 880,
+          "change_kind": "price_to_price",
+          "source": {
+            "type": "correction_order",
+            "kind": "correction_order",
+            "order_id": "CO-006-SEQ0",
+            "effective_at": "2026-01-20T07:00:00Z",
+            "sequence": 0,
+            "group_id": "G-SEQ0",
+            "event_id": "CO-006-SEQ0:G-SEQ0:S1|P100|2026-01-15",
+            "description": "已批准更正单 CO-006-SEQ0 通过组 G-SEQ0"
+          }
+        },
+        {
+          "kind": "correction_order",
+          "type": "correction_order",
+          "order_id": "CO-007-SEQ1",
+          "group_id": "G-SEQ1",
+          "effective_at": "2026-01-20T07:00:00Z",
+          "sequence": 1,
+          "before_value": 880,
+          "after_value": 870,
+          "change_kind": "price_to_price",
+          "source": {
+            "type": "correction_order",
+            "kind": "correction_order",
+            "order_id": "CO-007-SEQ1",
+            "effective_at": "2026-01-20T07:00:00Z",
+            "sequence": 1,
+            "group_id": "G-SEQ1",
+            "event_id": "CO-007-SEQ1:G-SEQ1:S1|P100|2026-01-15",
+            "description": "已批准更正单 CO-007-SEQ1 通过组 G-SEQ1"
+          }
+        }
+      ],
+      "status": "OVERCHARGED",
+      "status_label": "多收",
+      "expected_price_display": "870分",
+      "message": "实际成交单价高于交易时点有效价格 10分/件"
+    },
+    {
+      "line_id": "TX-1012",
+      "input_line": 12,
+      "store_id": "S2",
+      "product_id": "P100",
+      "date_id": "2026-01-15",
+      "transaction_at": {
+        "input": "2026-01-15T12:00:00+08:00",
+        "utc": "2026-01-15T04:00:00Z"
+      },
+      "quantity": 1,
+      "actual_unit_price_fen": 700,
+      "actual_total_fen": 700,
+      "ledger_query_status": "OK",
+      "expected_price_state": "priced",
+      "expected_unit_price_fen": 760,
+      "expected_total_fen": 760,
+      "unit_difference_fen": -60,
+      "total_difference_fen": -60,
+      "difference_direction": "undercharge",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "CO-004-S2",
+        "effective_at": "2026-01-15T02:00:00Z",
+        "sequence": 0,
+        "group_id": "G-INDEPENDENT-S2",
+        "event_id": "CO-004-S2:G-INDEPENDENT-S2:S2|P100|2026-01-15",
+        "description": "已批准更正单 CO-004-S2 通过组 G-INDEPENDENT-S2"
+      },
+      "provenance_chain": [
+        {
+          "kind": "base",
+          "type": "base",
+          "effective_from": "2025-12-31T16:00:00Z",
+          "value": 800
+        },
+        {
+          "kind": "correction_order",
+          "type": "correction_order",
+          "order_id": "CO-004-S2",
+          "group_id": "G-INDEPENDENT-S2",
+          "effective_at": "2026-01-15T02:00:00Z",
+          "sequence": 0,
+          "before_value": 800,
+          "after_value": 760,
+          "change_kind": "price_to_price",
+          "source": {
+            "type": "correction_order",
+            "kind": "correction_order",
+            "order_id": "CO-004-S2",
+            "effective_at": "2026-01-15T02:00:00Z",
+            "sequence": 0,
+            "group_id": "G-INDEPENDENT-S2",
+            "event_id": "CO-004-S2:G-INDEPENDENT-S2:S2|P100|2026-01-15",
+            "description": "已批准更正单 CO-004-S2 通过组 G-INDEPENDENT-S2"
+          }
+        }
+      ],
+      "status": "UNDERCHARGED",
+      "status_label": "少收",
+      "expected_price_display": "760分",
+      "message": "实际成交单价低于交易时点有效价格 60分/件"
+    },
+    {
+      "line_id": "TX-1013",
+      "input_line": 13,
+      "store_id": "S1",
+      "product_id": "P100",
+      "date_id": "2026-01-15",
+      "transaction_at": {
+        "input": "2026-02-03T09:00:00+08:00",
+        "utc": "2026-02-03T01:00:00Z"
+      },
+      "quantity": 1,
+      "actual_unit_price_fen": 900,
+      "actual_total_fen": 900,
+      "ledger_query_status": "OK",
+      "expected_price_state": "priced",
+      "expected_unit_price_fen": 870,
+      "expected_total_fen": 870,
+      "unit_difference_fen": 30,
+      "total_difference_fen": 30,
+      "difference_direction": "overcharge",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "CO-007-SEQ1",
+        "effective_at": "2026-01-20T07:00:00Z",
+        "sequence": 1,
+        "group_id": "G-SEQ1",
+        "event_id": "CO-007-SEQ1:G-SEQ1:S1|P100|2026-01-15",
+        "description": "已批准更正单 CO-007-SEQ1 通过组 G-SEQ1"
+      },
+      "provenance_chain": [
+        {
+          "kind": "base",
+          "type": "base",
+          "effective_from": "2025-12-31T16:00:00Z",
+          "value": 1000
+        },
+        {
+          "kind": "correction_order",
+          "type": "correction_order",
+          "order_id": "CO-001-EARLY",
+          "group_id": "G-EARLY",
+          "effective_at": "2026-01-05T02:00:00Z",
+          "sequence": 0,
+          "before_value": 1000,
+          "after_value": 950,
+          "change_kind": "price_to_price",
+          "source": {
+            "type": "correction_order",
+            "kind": "correction_order",
+            "order_id": "CO-001-EARLY",
+            "effective_at": "2026-01-05T02:00:00Z",
+            "sequence": 0,
+            "group_id": "G-EARLY",
+            "event_id": "CO-001-EARLY:G-EARLY:S1|P100|2026-01-15",
+            "description": "已批准更正单 CO-001-EARLY 通过组 G-EARLY"
+          }
+        },
+        {
+          "kind": "correction_order",
+          "type": "correction_order",
+          "order_id": "CO-002-CHAIN",
+          "group_id": "G-CHAIN",
+          "effective_at": "2026-01-10T02:00:00Z",
+          "sequence": 0,
+          "before_value": 950,
+          "after_value": 900,
+          "change_kind": "price_to_price",
+          "source": {
+            "type": "correction_order",
+            "kind": "correction_order",
+            "order_id": "CO-002-CHAIN",
+            "effective_at": "2026-01-10T02:00:00Z",
+            "sequence": 0,
+            "group_id": "G-CHAIN",
+            "event_id": "CO-002-CHAIN:G-CHAIN:S1|P100|2026-01-15",
+            "description": "已批准更正单 CO-002-CHAIN 通过组 G-CHAIN"
+          }
+        },
+        {
+          "kind": "correction_order",
+          "type": "correction_order",
+          "order_id": "CO-006-SEQ0",
+          "group_id": "G-SEQ0",
+          "effective_at": "2026-01-20T07:00:00Z",
+          "sequence": 0,
+          "before_value": 900,
+          "after_value": 880,
+          "change_kind": "price_to_price",
+          "source": {
+            "type": "correction_order",
+            "kind": "correction_order",
+            "order_id": "CO-006-SEQ0",
+            "effective_at": "2026-01-20T07:00:00Z",
+            "sequence": 0,
+            "group_id": "G-SEQ0",
+            "event_id": "CO-006-SEQ0:G-SEQ0:S1|P100|2026-01-15",
+            "description": "已批准更正单 CO-006-SEQ0 通过组 G-SEQ0"
+          }
+        },
+        {
+          "kind": "correction_order",
+          "type": "correction_order",
+          "order_id": "CO-007-SEQ1",
+          "group_id": "G-SEQ1",
+          "effective_at": "2026-01-20T07:00:00Z",
+          "sequence": 1,
+          "before_value": 880,
+          "after_value": 870,
+          "change_kind": "price_to_price",
+          "source": {
+            "type": "correction_order",
+            "kind": "correction_order",
+            "order_id": "CO-007-SEQ1",
+            "effective_at": "2026-01-20T07:00:00Z",
+            "sequence": 1,
+            "group_id": "G-SEQ1",
+            "event_id": "CO-007-SEQ1:G-SEQ1:S1|P100|2026-01-15",
+            "description": "已批准更正单 CO-007-SEQ1 通过组 G-SEQ1"
+          }
+        }
+      ],
+      "status": "OVERCHARGED",
+      "status_label": "多收",
+      "expected_price_display": "870分",
+      "message": "实际成交单价高于交易时点有效价格 30分/件"
+    }
+  ],
+  "summary": {
+    "transaction_count": 13,
+    "category_counts": {
+      "MATCH": 2,
+      "OVERCHARGED": 5,
+      "UNDERCHARGED": 2,
+      "NO_PRICE_AT_TIME": 2,
+      "MISSING_HISTORY": 1,
+      "BEFORE_BASE_EFFECTIVE": 1
+    },
+    "priced_transaction_count": 9,
+    "overcharge_count": 5,
+    "undercharge_count": 2,
+    "overcharge_amount_fen": 160,
+    "undercharge_amount_fen": 80,
+    "net_difference_fen": 80,
+    "gross_difference_fen": 240,
+    "category_labels": {
+      "MATCH": "价格一致",
+      "OVERCHARGED": "多收",
+      "UNDERCHARGED": "少收",
+      "NO_PRICE_AT_TIME": "当时明确无价",
+      "MISSING_HISTORY": "缺少历史",
+      "BEFORE_BASE_EFFECTIVE": "底档尚未生效"
+    },
+    "has_difference": true,
+    "categories": [
+      {
+        "status": "MATCH",
+        "label": "价格一致",
+        "count": 2
+      },
+      {
+        "status": "OVERCHARGED",
+        "label": "多收",
+        "count": 5
+      },
+      {
+        "status": "UNDERCHARGED",
+        "label": "少收",
+        "count": 2
+      },
+      {
+        "status": "NO_PRICE_AT_TIME",
+        "label": "当时明确无价",
+        "count": 2
+      },
+      {
+        "status": "MISSING_HISTORY",
+        "label": "缺少历史",
+        "count": 1
+      },
+      {
+        "status": "BEFORE_BASE_EFFECTIVE",
+        "label": "底档尚未生效",
+        "count": 1
+      }
+    ],
+    "non_priced_transaction_count": 4,
+    "net_difference_formula": "净分差 = 多收合计 - 少收合计；正数表示净多收，负数表示净少收",
+    "per_line_first_note": "先逐笔判定多收/少收，再分别汇总；多收与少收不会在逐笔核对前抵消"
+  },
+  "by_fact": [
+    {
+      "store_id": "S1",
+      "product_id": "P100",
+      "date_id": "2026-01-15",
+      "transaction_count": 7,
+      "category_counts": {
+        "MATCH": 2,
+        "OVERCHARGED": 3,
+        "UNDERCHARGED": 1,
+        "NO_PRICE_AT_TIME": 0,
+        "MISSING_HISTORY": 0,
+        "BEFORE_BASE_EFFECTIVE": 1
+      },
+      "priced_transaction_count": 6,
+      "overcharge_count": 3,
+      "undercharge_count": 1,
+      "overcharge_amount_fen": 110,
+      "undercharge_amount_fen": 20,
+      "net_difference_fen": 90,
+      "gross_difference_fen": 130,
+      "category_labels": {
+        "MATCH": "价格一致",
+        "OVERCHARGED": "多收",
+        "UNDERCHARGED": "少收",
+        "NO_PRICE_AT_TIME": "当时明确无价",
+        "MISSING_HISTORY": "缺少历史",
+        "BEFORE_BASE_EFFECTIVE": "底档尚未生效"
+      },
+      "has_difference": true
+    },
+    {
+      "store_id": "S1",
+      "product_id": "P100",
+      "date_id": "2026-01-16",
+      "transaction_count": 1,
+      "category_counts": {
+        "MATCH": 0,
+        "OVERCHARGED": 1,
+        "UNDERCHARGED": 0,
+        "NO_PRICE_AT_TIME": 0,
+        "MISSING_HISTORY": 0,
+        "BEFORE_BASE_EFFECTIVE": 0
+      },
+      "priced_transaction_count": 1,
+      "overcharge_count": 1,
+      "undercharge_count": 0,
+      "overcharge_amount_fen": 30,
+      "undercharge_amount_fen": 0,
+      "net_difference_fen": 30,
+      "gross_difference_fen": 30,
+      "category_labels": {
+        "MATCH": "价格一致",
+        "OVERCHARGED": "多收",
+        "UNDERCHARGED": "少收",
+        "NO_PRICE_AT_TIME": "当时明确无价",
+        "MISSING_HISTORY": "缺少历史",
+        "BEFORE_BASE_EFFECTIVE": "底档尚未生效"
+      },
+      "has_difference": true
+    },
+    {
+      "store_id": "S1",
+      "product_id": "P200",
+      "date_id": "2026-01-15",
+      "transaction_count": 1,
+      "category_counts": {
+        "MATCH": 0,
+        "OVERCHARGED": 0,
+        "UNDERCHARGED": 0,
+        "NO_PRICE_AT_TIME": 1,
+        "MISSING_HISTORY": 0,
+        "BEFORE_BASE_EFFECTIVE": 0
+      },
+      "priced_transaction_count": 0,
+      "overcharge_count": 0,
+      "undercharge_count": 0,
+      "overcharge_amount_fen": 0,
+      "undercharge_amount_fen": 0,
+      "net_difference_fen": 0,
+      "gross_difference_fen": 0,
+      "category_labels": {
+        "MATCH": "价格一致",
+        "OVERCHARGED": "多收",
+        "UNDERCHARGED": "少收",
+        "NO_PRICE_AT_TIME": "当时明确无价",
+        "MISSING_HISTORY": "缺少历史",
+        "BEFORE_BASE_EFFECTIVE": "底档尚未生效"
+      },
+      "has_difference": false
+    },
+    {
+      "store_id": "S1",
+      "product_id": "P999",
+      "date_id": "2026-01-15",
+      "transaction_count": 1,
+      "category_counts": {
+        "MATCH": 0,
+        "OVERCHARGED": 0,
+        "UNDERCHARGED": 0,
+        "NO_PRICE_AT_TIME": 0,
+        "MISSING_HISTORY": 1,
+        "BEFORE_BASE_EFFECTIVE": 0
+      },
+      "priced_transaction_count": 0,
+      "overcharge_count": 0,
+      "undercharge_count": 0,
+      "overcharge_amount_fen": 0,
+      "undercharge_amount_fen": 0,
+      "net_difference_fen": 0,
+      "gross_difference_fen": 0,
+      "category_labels": {
+        "MATCH": "价格一致",
+        "OVERCHARGED": "多收",
+        "UNDERCHARGED": "少收",
+        "NO_PRICE_AT_TIME": "当时明确无价",
+        "MISSING_HISTORY": "缺少历史",
+        "BEFORE_BASE_EFFECTIVE": "底档尚未生效"
+      },
+      "has_difference": false
+    },
+    {
+      "store_id": "S2",
+      "product_id": "P100",
+      "date_id": "2026-01-15",
+      "transaction_count": 1,
+      "category_counts": {
+        "MATCH": 0,
+        "OVERCHARGED": 0,
+        "UNDERCHARGED": 1,
+        "NO_PRICE_AT_TIME": 0,
+        "MISSING_HISTORY": 0,
+        "BEFORE_BASE_EFFECTIVE": 0
+      },
+      "priced_transaction_count": 1,
+      "overcharge_count": 0,
+      "undercharge_count": 1,
+      "overcharge_amount_fen": 0,
+      "undercharge_amount_fen": 60,
+      "net_difference_fen": -60,
+      "gross_difference_fen": 60,
+      "category_labels": {
+        "MATCH": "价格一致",
+        "OVERCHARGED": "多收",
+        "UNDERCHARGED": "少收",
+        "NO_PRICE_AT_TIME": "当时明确无价",
+        "MISSING_HISTORY": "缺少历史",
+        "BEFORE_BASE_EFFECTIVE": "底档尚未生效"
+      },
+      "has_difference": true
+    },
+    {
+      "store_id": "S2",
+      "product_id": "P200",
+      "date_id": "2026-01-15",
+      "transaction_count": 2,
+      "category_counts": {
+        "MATCH": 0,
+        "OVERCHARGED": 1,
+        "UNDERCHARGED": 0,
+        "NO_PRICE_AT_TIME": 1,
+        "MISSING_HISTORY": 0,
+        "BEFORE_BASE_EFFECTIVE": 0
+      },
+      "priced_transaction_count": 1,
+      "overcharge_count": 1,
+      "undercharge_count": 0,
+      "overcharge_amount_fen": 20,
+      "undercharge_amount_fen": 0,
+      "net_difference_fen": 20,
+      "gross_difference_fen": 20,
+      "category_labels": {
+        "MATCH": "价格一致",
+        "OVERCHARGED": "多收",
+        "UNDERCHARGED": "少收",
+        "NO_PRICE_AT_TIME": "当时明确无价",
+        "MISSING_HISTORY": "缺少历史",
+        "BEFORE_BASE_EFFECTIVE": "底档尚未生效"
+      },
+      "has_difference": true
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{"line_id":"TX-1001","store_id":"S1","product_id":"P100","date_id":"2026-01-15","transaction_at":"2026-01-05T09:59:59+08:00","quantity":1,"unit_price_fen":1000}
+{"line_id":"TX-1002","store_id":"S1","product_id":"P100","date_id":"2026-01-15","transaction_at":"2026-01-05T02:00:00Z","quantity":2,"unit_price_fen":980}
+{"line_id":"TX-1003","store_id":"S1","product_id":"P100","date_id":"2026-01-15","transaction_at":"2026-01-08T12:00:00+08:00","quantity":1,"unit_price_fen":930}
+{"line_id":"TX-1004","store_id":"S1","product_id":"P100","date_id":"2026-01-15","transaction_at":"2026-01-12T12:00:00+08:00","quantity":3,"unit_price_fen":900}
+{"line_id":"TX-1005","store_id":"S1","product_id":"P100","date_id":"2026-01-16","transaction_at":"2026-01-16T12:00:00+08:00","quantity":1,"unit_price_fen":1180}
+{"line_id":"TX-1006","store_id":"S1","product_id":"P200","date_id":"2026-01-15","transaction_at":"2026-01-10T12:00:00+08:00","quantity":1,"unit_price_fen":500}
+{"line_id":"TX-1007","store_id":"S2","product_id":"P200","date_id":"2026-01-15","transaction_at":"2026-01-19T12:00:00+08:00","quantity":2,"unit_price_fen":480}
+{"line_id":"TX-1008","store_id":"S2","product_id":"P200","date_id":"2026-01-15","transaction_at":"2026-01-17T12:00:00+08:00","quantity":1,"unit_price_fen":520}
+{"line_id":"TX-1009","store_id":"S1","product_id":"P999","date_id":"2026-01-15","transaction_at":"2026-01-10T12:00:00+08:00","quantity":1,"unit_price_fen":999}
+{"line_id":"TX-1010","store_id":"S1","product_id":"P100","date_id":"2026-01-15","transaction_at":"2025-12-31T23:30:00+08:00","quantity":1,"unit_price_fen":1000}
+{"line_id":"TX-1011","store_id":"S1","product_id":"P100","date_id":"2026-01-15","transaction_at":"2026-01-20T15:00:00+08:00","quantity":2,"unit_price_fen":880}
+{"line_id":"TX-1012","store_id":"S2","product_id":"P100","date_id":"2026-01-15","transaction_at":"2026-01-15T12:00:00+08:00","quantity":1,"unit_price_fen":700}
+{"line_id":"TX-1013","store_id":"S1","product_id":"P100","date_id":"2026-01-15","transaction_at":"2026-02-03T09:00:00+08:00","quantity":1,"unit_price_fen":900}

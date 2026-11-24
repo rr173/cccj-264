@@ -1,0 +1,968 @@
+{
+  "version": 1,
+  "base": {
+    "effective_from": "2025-12-31T16:00:00Z",
+    "effective_from_input": "2026-01-01T00:00:00+08:00",
+    "prices": [
+      {
+        "fact": [
+          "S1",
+          "P100",
+          "2026-01-15"
+        ],
+        "value": 1000
+      },
+      {
+        "fact": [
+          "S1",
+          "P100",
+          "2026-01-16"
+        ],
+        "value": 1200
+      },
+      {
+        "fact": [
+          "S1",
+          "P200",
+          "2026-01-15"
+        ],
+        "value": "NOPRICE"
+      },
+      {
+        "fact": [
+          "S2",
+          "P100",
+          "2026-01-15"
+        ],
+        "value": 800
+      },
+      {
+        "fact": [
+          "S2",
+          "P200",
+          "2026-01-15"
+        ],
+        "value": 500
+      }
+    ]
+  },
+  "orders": {
+    "CO-001-EARLY": {
+      "order_id": "CO-001-EARLY",
+      "effective_at": "2026-01-05T02:00:00Z",
+      "effective_at_input": "2026-01-05T10:00:00+08:00",
+      "sequence": 0,
+      "content": {
+        "groups": [
+          {
+            "group_id": "G-EARLY",
+            "facts": [
+              {
+                "store_id": "S1",
+                "product_id": "P100",
+                "date_id": "2026-01-15",
+                "before": 1000,
+                "after": 950
+              }
+            ]
+          }
+        ]
+      },
+      "content_sha256": "82487742d65fd2657e993d1cdf73423d824d35ac56c3a5ffce4974959ffcdb24",
+      "bookable": {
+        "schema": "native-groups-v1",
+        "groups": [
+          {
+            "group_id": "G-EARLY",
+            "facts": [
+              {
+                "fact": [
+                  "S1",
+                  "P100",
+                  "2026-01-15"
+                ],
+                "before": 1000,
+                "after": 950,
+                "changed": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "CO-002-CHAIN": {
+      "order_id": "CO-002-CHAIN",
+      "effective_at": "2026-01-10T02:00:00Z",
+      "effective_at_input": "2026-01-10T10:00:00+08:00",
+      "sequence": 0,
+      "content": {
+        "groups": [
+          {
+            "group_id": "G-CHAIN",
+            "facts": [
+              {
+                "store_id": "S1",
+                "product_id": "P100",
+                "date_id": "2026-01-15",
+                "before": 950,
+                "after": 900
+              }
+            ]
+          }
+        ]
+      },
+      "content_sha256": "199301d738bd433d62fe41c747106c6f5edbed16e6ed017972e3fb6a62b4f2c9",
+      "bookable": {
+        "schema": "native-groups-v1",
+        "groups": [
+          {
+            "group_id": "G-CHAIN",
+            "facts": [
+              {
+                "fact": [
+                  "S1",
+                  "P100",
+                  "2026-01-15"
+                ],
+                "before": 950,
+                "after": 900,
+                "changed": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "CO-003-B-UPDATE": {
+      "order_id": "CO-003-B-UPDATE",
+      "effective_at": "2026-01-12T02:00:00Z",
+      "effective_at_input": "2026-01-12T10:00:00+08:00",
+      "sequence": 0,
+      "content": {
+        "groups": [
+          {
+            "group_id": "G-B-OK",
+            "facts": [
+              {
+                "store_id": "S1",
+                "product_id": "P100",
+                "date_id": "2026-01-16",
+                "before": 1200,
+                "after": 1150
+              }
+            ]
+          }
+        ]
+      },
+      "content_sha256": "fcc7bbe04aa7091fb0159004104feab9b42e160a3ba349136747ed7ff204094f",
+      "bookable": {
+        "schema": "native-groups-v1",
+        "groups": [
+          {
+            "group_id": "G-B-OK",
+            "facts": [
+              {
+                "fact": [
+                  "S1",
+                  "P100",
+                  "2026-01-16"
+                ],
+                "before": 1200,
+                "after": 1150,
+                "changed": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "CO-004-S2": {
+      "order_id": "CO-004-S2",
+      "effective_at": "2026-01-15T02:00:00Z",
+      "effective_at_input": "2026-01-15T10:00:00+08:00",
+      "sequence": 0,
+      "content": {
+        "groups": [
+          {
+            "group_id": "G-INDEPENDENT-S2",
+            "facts": [
+              {
+                "store_id": "S2",
+                "product_id": "P100",
+                "date_id": "2026-01-15",
+                "before": 800,
+                "after": 760
+              }
+            ]
+          }
+        ]
+      },
+      "content_sha256": "89bccf95b20b78ea136c890fd258142e8e33464d1ada5671e621a7922bfccd83",
+      "bookable": {
+        "schema": "native-groups-v1",
+        "groups": [
+          {
+            "group_id": "G-INDEPENDENT-S2",
+            "facts": [
+              {
+                "fact": [
+                  "S2",
+                  "P100",
+                  "2026-01-15"
+                ],
+                "before": 800,
+                "after": 760,
+                "changed": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "CO-005-TO-NOPRICE": {
+      "order_id": "CO-005-TO-NOPRICE",
+      "effective_at": "2026-01-18T02:00:00Z",
+      "effective_at_input": "2026-01-18T10:00:00+08:00",
+      "sequence": 0,
+      "content": {
+        "groups": [
+          {
+            "group_id": "G-NOPRICE",
+            "facts": [
+              {
+                "store_id": "S2",
+                "product_id": "P200",
+                "date_id": "2026-01-15",
+                "before": 500,
+                "after": "NOPRICE"
+              }
+            ]
+          }
+        ]
+      },
+      "content_sha256": "4f838033609c200f639b0d4cc80a354451aaa4a2940e5fd9ba19b857c90c8cb7",
+      "bookable": {
+        "schema": "native-groups-v1",
+        "groups": [
+          {
+            "group_id": "G-NOPRICE",
+            "facts": [
+              {
+                "fact": [
+                  "S2",
+                  "P200",
+                  "2026-01-15"
+                ],
+                "before": 500,
+                "after": "NOPRICE",
+                "changed": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "CO-006-SEQ0": {
+      "order_id": "CO-006-SEQ0",
+      "effective_at": "2026-01-20T07:00:00Z",
+      "effective_at_input": "2026-01-20T15:00:00+08:00",
+      "sequence": 0,
+      "content": {
+        "groups": [
+          {
+            "group_id": "G-SEQ0",
+            "facts": [
+              {
+                "store_id": "S1",
+                "product_id": "P100",
+                "date_id": "2026-01-15",
+                "before": 900,
+                "after": 880
+              }
+            ]
+          }
+        ]
+      },
+      "content_sha256": "cfb2465bdb001d819bc9d707d1b5e30891a575760cf21c8ea28fe78ae84e8a32",
+      "bookable": {
+        "schema": "native-groups-v1",
+        "groups": [
+          {
+            "group_id": "G-SEQ0",
+            "facts": [
+              {
+                "fact": [
+                  "S1",
+                  "P100",
+                  "2026-01-15"
+                ],
+                "before": 900,
+                "after": 880,
+                "changed": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "CO-007-SEQ1": {
+      "order_id": "CO-007-SEQ1",
+      "effective_at": "2026-01-20T07:00:00Z",
+      "effective_at_input": "2026-01-20T15:00:00+08:00",
+      "sequence": 1,
+      "content": {
+        "groups": [
+          {
+            "group_id": "G-SEQ1",
+            "facts": [
+              {
+                "store_id": "S1",
+                "product_id": "P100",
+                "date_id": "2026-01-15",
+                "before": 880,
+                "after": 870
+              }
+            ]
+          }
+        ]
+      },
+      "content_sha256": "d5f07d2d32fe0b73e712503a21c035c580c0594ff1272b00fdd1408d883bfdcc",
+      "bookable": {
+        "schema": "native-groups-v1",
+        "groups": [
+          {
+            "group_id": "G-SEQ1",
+            "facts": [
+              {
+                "fact": [
+                  "S1",
+                  "P100",
+                  "2026-01-15"
+                ],
+                "before": 880,
+                "after": 870,
+                "changed": true
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "delivery_log": [
+    {
+      "delivery_index": 1,
+      "order_ids_received": [
+        "CO-001-EARLY",
+        "CO-002-CHAIN",
+        "CO-003-B-UPDATE",
+        "CO-004-S2",
+        "CO-005-TO-NOPRICE",
+        "CO-006-SEQ0",
+        "CO-007-SEQ1"
+      ],
+      "new_order_ids": [
+        "CO-001-EARLY",
+        "CO-002-CHAIN",
+        "CO-003-B-UPDATE",
+        "CO-004-S2",
+        "CO-005-TO-NOPRICE",
+        "CO-006-SEQ0",
+        "CO-007-SEQ1"
+      ],
+      "duplicate_order_ids": [],
+      "base_action": null,
+      "status_after_recompute": {
+        "CO-001-EARLY": "applied",
+        "CO-002-CHAIN": "applied",
+        "CO-003-B-UPDATE": "applied",
+        "CO-004-S2": "applied",
+        "CO-005-TO-NOPRICE": "applied",
+        "CO-006-SEQ0": "applied",
+        "CO-007-SEQ1": "applied"
+      },
+      "conflict_groups_after_recompute": []
+    }
+  ],
+  "price_events": [
+    {
+      "event_id": "CO-001-EARLY:G-EARLY:S1|P100|2026-01-15",
+      "fact": {
+        "store_id": "S1",
+        "product_id": "P100",
+        "date_id": "2026-01-15"
+      },
+      "store_id": "S1",
+      "product_id": "P100",
+      "date_id": "2026-01-15",
+      "effective_at": "2026-01-05T02:00:00Z",
+      "sequence": 0,
+      "order_id": "CO-001-EARLY",
+      "group_id": "G-EARLY",
+      "before_value": 1000,
+      "after_value": 950,
+      "change_kind": "price_to_price",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "CO-001-EARLY",
+        "effective_at": "2026-01-05T02:00:00Z",
+        "sequence": 0,
+        "group_id": "G-EARLY",
+        "event_id": "CO-001-EARLY:G-EARLY:S1|P100|2026-01-15",
+        "description": "已批准更正单 CO-001-EARLY 通过组 G-EARLY"
+      }
+    },
+    {
+      "event_id": "CO-002-CHAIN:G-CHAIN:S1|P100|2026-01-15",
+      "fact": {
+        "store_id": "S1",
+        "product_id": "P100",
+        "date_id": "2026-01-15"
+      },
+      "store_id": "S1",
+      "product_id": "P100",
+      "date_id": "2026-01-15",
+      "effective_at": "2026-01-10T02:00:00Z",
+      "sequence": 0,
+      "order_id": "CO-002-CHAIN",
+      "group_id": "G-CHAIN",
+      "before_value": 950,
+      "after_value": 900,
+      "change_kind": "price_to_price",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "CO-002-CHAIN",
+        "effective_at": "2026-01-10T02:00:00Z",
+        "sequence": 0,
+        "group_id": "G-CHAIN",
+        "event_id": "CO-002-CHAIN:G-CHAIN:S1|P100|2026-01-15",
+        "description": "已批准更正单 CO-002-CHAIN 通过组 G-CHAIN"
+      }
+    },
+    {
+      "event_id": "CO-003-B-UPDATE:G-B-OK:S1|P100|2026-01-16",
+      "fact": {
+        "store_id": "S1",
+        "product_id": "P100",
+        "date_id": "2026-01-16"
+      },
+      "store_id": "S1",
+      "product_id": "P100",
+      "date_id": "2026-01-16",
+      "effective_at": "2026-01-12T02:00:00Z",
+      "sequence": 0,
+      "order_id": "CO-003-B-UPDATE",
+      "group_id": "G-B-OK",
+      "before_value": 1200,
+      "after_value": 1150,
+      "change_kind": "price_to_price",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "CO-003-B-UPDATE",
+        "effective_at": "2026-01-12T02:00:00Z",
+        "sequence": 0,
+        "group_id": "G-B-OK",
+        "event_id": "CO-003-B-UPDATE:G-B-OK:S1|P100|2026-01-16",
+        "description": "已批准更正单 CO-003-B-UPDATE 通过组 G-B-OK"
+      }
+    },
+    {
+      "event_id": "CO-004-S2:G-INDEPENDENT-S2:S2|P100|2026-01-15",
+      "fact": {
+        "store_id": "S2",
+        "product_id": "P100",
+        "date_id": "2026-01-15"
+      },
+      "store_id": "S2",
+      "product_id": "P100",
+      "date_id": "2026-01-15",
+      "effective_at": "2026-01-15T02:00:00Z",
+      "sequence": 0,
+      "order_id": "CO-004-S2",
+      "group_id": "G-INDEPENDENT-S2",
+      "before_value": 800,
+      "after_value": 760,
+      "change_kind": "price_to_price",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "CO-004-S2",
+        "effective_at": "2026-01-15T02:00:00Z",
+        "sequence": 0,
+        "group_id": "G-INDEPENDENT-S2",
+        "event_id": "CO-004-S2:G-INDEPENDENT-S2:S2|P100|2026-01-15",
+        "description": "已批准更正单 CO-004-S2 通过组 G-INDEPENDENT-S2"
+      }
+    },
+    {
+      "event_id": "CO-005-TO-NOPRICE:G-NOPRICE:S2|P200|2026-01-15",
+      "fact": {
+        "store_id": "S2",
+        "product_id": "P200",
+        "date_id": "2026-01-15"
+      },
+      "store_id": "S2",
+      "product_id": "P200",
+      "date_id": "2026-01-15",
+      "effective_at": "2026-01-18T02:00:00Z",
+      "sequence": 0,
+      "order_id": "CO-005-TO-NOPRICE",
+      "group_id": "G-NOPRICE",
+      "before_value": 500,
+      "after_value": "NOPRICE",
+      "change_kind": "to_noprice",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "CO-005-TO-NOPRICE",
+        "effective_at": "2026-01-18T02:00:00Z",
+        "sequence": 0,
+        "group_id": "G-NOPRICE",
+        "event_id": "CO-005-TO-NOPRICE:G-NOPRICE:S2|P200|2026-01-15",
+        "description": "已批准更正单 CO-005-TO-NOPRICE 通过组 G-NOPRICE"
+      }
+    },
+    {
+      "event_id": "CO-006-SEQ0:G-SEQ0:S1|P100|2026-01-15",
+      "fact": {
+        "store_id": "S1",
+        "product_id": "P100",
+        "date_id": "2026-01-15"
+      },
+      "store_id": "S1",
+      "product_id": "P100",
+      "date_id": "2026-01-15",
+      "effective_at": "2026-01-20T07:00:00Z",
+      "sequence": 0,
+      "order_id": "CO-006-SEQ0",
+      "group_id": "G-SEQ0",
+      "before_value": 900,
+      "after_value": 880,
+      "change_kind": "price_to_price",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "CO-006-SEQ0",
+        "effective_at": "2026-01-20T07:00:00Z",
+        "sequence": 0,
+        "group_id": "G-SEQ0",
+        "event_id": "CO-006-SEQ0:G-SEQ0:S1|P100|2026-01-15",
+        "description": "已批准更正单 CO-006-SEQ0 通过组 G-SEQ0"
+      }
+    },
+    {
+      "event_id": "CO-007-SEQ1:G-SEQ1:S1|P100|2026-01-15",
+      "fact": {
+        "store_id": "S1",
+        "product_id": "P100",
+        "date_id": "2026-01-15"
+      },
+      "store_id": "S1",
+      "product_id": "P100",
+      "date_id": "2026-01-15",
+      "effective_at": "2026-01-20T07:00:00Z",
+      "sequence": 1,
+      "order_id": "CO-007-SEQ1",
+      "group_id": "G-SEQ1",
+      "before_value": 880,
+      "after_value": 870,
+      "change_kind": "price_to_price",
+      "source": {
+        "type": "correction_order",
+        "kind": "correction_order",
+        "order_id": "CO-007-SEQ1",
+        "effective_at": "2026-01-20T07:00:00Z",
+        "sequence": 1,
+        "group_id": "G-SEQ1",
+        "event_id": "CO-007-SEQ1:G-SEQ1:S1|P100|2026-01-15",
+        "description": "已批准更正单 CO-007-SEQ1 通过组 G-SEQ1"
+      }
+    }
+  ],
+  "conflicts": [],
+  "evaluation": {
+    "orders": {
+      "CO-001-EARLY": {
+        "order_id": "CO-001-EARLY",
+        "effective_at": "2026-01-05T02:00:00Z",
+        "sequence": 0,
+        "arrival_independent_note": "生效判定由全量单据按时间+顺序重算",
+        "groups": [
+          {
+            "order_id": "CO-001-EARLY",
+            "group_id": "G-EARLY",
+            "status": "applied",
+            "conflicts": [],
+            "applied_changes": [
+              {
+                "event_id": "CO-001-EARLY:G-EARLY:S1|P100|2026-01-15",
+                "fact": {
+                  "store_id": "S1",
+                  "product_id": "P100",
+                  "date_id": "2026-01-15"
+                },
+                "store_id": "S1",
+                "product_id": "P100",
+                "date_id": "2026-01-15",
+                "effective_at": "2026-01-05T02:00:00Z",
+                "sequence": 0,
+                "order_id": "CO-001-EARLY",
+                "group_id": "G-EARLY",
+                "before_value": 1000,
+                "after_value": 950,
+                "change_kind": "price_to_price",
+                "source": {
+                  "type": "correction_order",
+                  "kind": "correction_order",
+                  "order_id": "CO-001-EARLY",
+                  "effective_at": "2026-01-05T02:00:00Z",
+                  "sequence": 0,
+                  "group_id": "G-EARLY",
+                  "event_id": "CO-001-EARLY:G-EARLY:S1|P100|2026-01-15",
+                  "description": "已批准更正单 CO-001-EARLY 通过组 G-EARLY"
+                }
+              }
+            ],
+            "zero_change_facts": [],
+            "blocked_changes": [],
+            "facts": [
+              [
+                "S1",
+                "P100",
+                "2026-01-15"
+              ]
+            ]
+          }
+        ],
+        "status": "applied"
+      },
+      "CO-002-CHAIN": {
+        "order_id": "CO-002-CHAIN",
+        "effective_at": "2026-01-10T02:00:00Z",
+        "sequence": 0,
+        "arrival_independent_note": "生效判定由全量单据按时间+顺序重算",
+        "groups": [
+          {
+            "order_id": "CO-002-CHAIN",
+            "group_id": "G-CHAIN",
+            "status": "applied",
+            "conflicts": [],
+            "applied_changes": [
+              {
+                "event_id": "CO-002-CHAIN:G-CHAIN:S1|P100|2026-01-15",
+                "fact": {
+                  "store_id": "S1",
+                  "product_id": "P100",
+                  "date_id": "2026-01-15"
+                },
+                "store_id": "S1",
+                "product_id": "P100",
+                "date_id": "2026-01-15",
+                "effective_at": "2026-01-10T02:00:00Z",
+                "sequence": 0,
+                "order_id": "CO-002-CHAIN",
+                "group_id": "G-CHAIN",
+                "before_value": 950,
+                "after_value": 900,
+                "change_kind": "price_to_price",
+                "source": {
+                  "type": "correction_order",
+                  "kind": "correction_order",
+                  "order_id": "CO-002-CHAIN",
+                  "effective_at": "2026-01-10T02:00:00Z",
+                  "sequence": 0,
+                  "group_id": "G-CHAIN",
+                  "event_id": "CO-002-CHAIN:G-CHAIN:S1|P100|2026-01-15",
+                  "description": "已批准更正单 CO-002-CHAIN 通过组 G-CHAIN"
+                }
+              }
+            ],
+            "zero_change_facts": [],
+            "blocked_changes": [],
+            "facts": [
+              [
+                "S1",
+                "P100",
+                "2026-01-15"
+              ]
+            ]
+          }
+        ],
+        "status": "applied"
+      },
+      "CO-003-B-UPDATE": {
+        "order_id": "CO-003-B-UPDATE",
+        "effective_at": "2026-01-12T02:00:00Z",
+        "sequence": 0,
+        "arrival_independent_note": "生效判定由全量单据按时间+顺序重算",
+        "groups": [
+          {
+            "order_id": "CO-003-B-UPDATE",
+            "group_id": "G-B-OK",
+            "status": "applied",
+            "conflicts": [],
+            "applied_changes": [
+              {
+                "event_id": "CO-003-B-UPDATE:G-B-OK:S1|P100|2026-01-16",
+                "fact": {
+                  "store_id": "S1",
+                  "product_id": "P100",
+                  "date_id": "2026-01-16"
+                },
+                "store_id": "S1",
+                "product_id": "P100",
+                "date_id": "2026-01-16",
+                "effective_at": "2026-01-12T02:00:00Z",
+                "sequence": 0,
+                "order_id": "CO-003-B-UPDATE",
+                "group_id": "G-B-OK",
+                "before_value": 1200,
+                "after_value": 1150,
+                "change_kind": "price_to_price",
+                "source": {
+                  "type": "correction_order",
+                  "kind": "correction_order",
+                  "order_id": "CO-003-B-UPDATE",
+                  "effective_at": "2026-01-12T02:00:00Z",
+                  "sequence": 0,
+                  "group_id": "G-B-OK",
+                  "event_id": "CO-003-B-UPDATE:G-B-OK:S1|P100|2026-01-16",
+                  "description": "已批准更正单 CO-003-B-UPDATE 通过组 G-B-OK"
+                }
+              }
+            ],
+            "zero_change_facts": [],
+            "blocked_changes": [],
+            "facts": [
+              [
+                "S1",
+                "P100",
+                "2026-01-16"
+              ]
+            ]
+          }
+        ],
+        "status": "applied"
+      },
+      "CO-004-S2": {
+        "order_id": "CO-004-S2",
+        "effective_at": "2026-01-15T02:00:00Z",
+        "sequence": 0,
+        "arrival_independent_note": "生效判定由全量单据按时间+顺序重算",
+        "groups": [
+          {
+            "order_id": "CO-004-S2",
+            "group_id": "G-INDEPENDENT-S2",
+            "status": "applied",
+            "conflicts": [],
+            "applied_changes": [
+              {
+                "event_id": "CO-004-S2:G-INDEPENDENT-S2:S2|P100|2026-01-15",
+                "fact": {
+                  "store_id": "S2",
+                  "product_id": "P100",
+                  "date_id": "2026-01-15"
+                },
+                "store_id": "S2",
+                "product_id": "P100",
+                "date_id": "2026-01-15",
+                "effective_at": "2026-01-15T02:00:00Z",
+                "sequence": 0,
+                "order_id": "CO-004-S2",
+                "group_id": "G-INDEPENDENT-S2",
+                "before_value": 800,
+                "after_value": 760,
+                "change_kind": "price_to_price",
+                "source": {
+                  "type": "correction_order",
+                  "kind": "correction_order",
+                  "order_id": "CO-004-S2",
+                  "effective_at": "2026-01-15T02:00:00Z",
+                  "sequence": 0,
+                  "group_id": "G-INDEPENDENT-S2",
+                  "event_id": "CO-004-S2:G-INDEPENDENT-S2:S2|P100|2026-01-15",
+                  "description": "已批准更正单 CO-004-S2 通过组 G-INDEPENDENT-S2"
+                }
+              }
+            ],
+            "zero_change_facts": [],
+            "blocked_changes": [],
+            "facts": [
+              [
+                "S2",
+                "P100",
+                "2026-01-15"
+              ]
+            ]
+          }
+        ],
+        "status": "applied"
+      },
+      "CO-005-TO-NOPRICE": {
+        "order_id": "CO-005-TO-NOPRICE",
+        "effective_at": "2026-01-18T02:00:00Z",
+        "sequence": 0,
+        "arrival_independent_note": "生效判定由全量单据按时间+顺序重算",
+        "groups": [
+          {
+            "order_id": "CO-005-TO-NOPRICE",
+            "group_id": "G-NOPRICE",
+            "status": "applied",
+            "conflicts": [],
+            "applied_changes": [
+              {
+                "event_id": "CO-005-TO-NOPRICE:G-NOPRICE:S2|P200|2026-01-15",
+                "fact": {
+                  "store_id": "S2",
+                  "product_id": "P200",
+                  "date_id": "2026-01-15"
+                },
+                "store_id": "S2",
+                "product_id": "P200",
+                "date_id": "2026-01-15",
+                "effective_at": "2026-01-18T02:00:00Z",
+                "sequence": 0,
+                "order_id": "CO-005-TO-NOPRICE",
+                "group_id": "G-NOPRICE",
+                "before_value": 500,
+                "after_value": "NOPRICE",
+                "change_kind": "to_noprice",
+                "source": {
+                  "type": "correction_order",
+                  "kind": "correction_order",
+                  "order_id": "CO-005-TO-NOPRICE",
+                  "effective_at": "2026-01-18T02:00:00Z",
+                  "sequence": 0,
+                  "group_id": "G-NOPRICE",
+                  "event_id": "CO-005-TO-NOPRICE:G-NOPRICE:S2|P200|2026-01-15",
+                  "description": "已批准更正单 CO-005-TO-NOPRICE 通过组 G-NOPRICE"
+                }
+              }
+            ],
+            "zero_change_facts": [],
+            "blocked_changes": [],
+            "facts": [
+              [
+                "S2",
+                "P200",
+                "2026-01-15"
+              ]
+            ]
+          }
+        ],
+        "status": "applied"
+      },
+      "CO-006-SEQ0": {
+        "order_id": "CO-006-SEQ0",
+        "effective_at": "2026-01-20T07:00:00Z",
+        "sequence": 0,
+        "arrival_independent_note": "生效判定由全量单据按时间+顺序重算",
+        "groups": [
+          {
+            "order_id": "CO-006-SEQ0",
+            "group_id": "G-SEQ0",
+            "status": "applied",
+            "conflicts": [],
+            "applied_changes": [
+              {
+                "event_id": "CO-006-SEQ0:G-SEQ0:S1|P100|2026-01-15",
+                "fact": {
+                  "store_id": "S1",
+                  "product_id": "P100",
+                  "date_id": "2026-01-15"
+                },
+                "store_id": "S1",
+                "product_id": "P100",
+                "date_id": "2026-01-15",
+                "effective_at": "2026-01-20T07:00:00Z",
+                "sequence": 0,
+                "order_id": "CO-006-SEQ0",
+                "group_id": "G-SEQ0",
+                "before_value": 900,
+                "after_value": 880,
+                "change_kind": "price_to_price",
+                "source": {
+                  "type": "correction_order",
+                  "kind": "correction_order",
+                  "order_id": "CO-006-SEQ0",
+                  "effective_at": "2026-01-20T07:00:00Z",
+                  "sequence": 0,
+                  "group_id": "G-SEQ0",
+                  "event_id": "CO-006-SEQ0:G-SEQ0:S1|P100|2026-01-15",
+                  "description": "已批准更正单 CO-006-SEQ0 通过组 G-SEQ0"
+                }
+              }
+            ],
+            "zero_change_facts": [],
+            "blocked_changes": [],
+            "facts": [
+              [
+                "S1",
+                "P100",
+                "2026-01-15"
+              ]
+            ]
+          }
+        ],
+        "status": "applied"
+      },
+      "CO-007-SEQ1": {
+        "order_id": "CO-007-SEQ1",
+        "effective_at": "2026-01-20T07:00:00Z",
+        "sequence": 1,
+        "arrival_independent_note": "生效判定由全量单据按时间+顺序重算",
+        "groups": [
+          {
+            "order_id": "CO-007-SEQ1",
+            "group_id": "G-SEQ1",
+            "status": "applied",
+            "conflicts": [],
+            "applied_changes": [
+              {
+                "event_id": "CO-007-SEQ1:G-SEQ1:S1|P100|2026-01-15",
+                "fact": {
+                  "store_id": "S1",
+                  "product_id": "P100",
+                  "date_id": "2026-01-15"
+                },
+                "store_id": "S1",
+                "product_id": "P100",
+                "date_id": "2026-01-15",
+                "effective_at": "2026-01-20T07:00:00Z",
+                "sequence": 1,
+                "order_id": "CO-007-SEQ1",
+                "group_id": "G-SEQ1",
+                "before_value": 880,
+                "after_value": 870,
+                "change_kind": "price_to_price",
+                "source": {
+                  "type": "correction_order",
+                  "kind": "correction_order",
+                  "order_id": "CO-007-SEQ1",
+                  "effective_at": "2026-01-20T07:00:00Z",
+                  "sequence": 1,
+                  "group_id": "G-SEQ1",
+                  "event_id": "CO-007-SEQ1:G-SEQ1:S1|P100|2026-01-15",
+                  "description": "已批准更正单 CO-007-SEQ1 通过组 G-SEQ1"
+                }
+              }
+            ],
+            "zero_change_facts": [],
+            "blocked_changes": [],
+            "facts": [
+              [
+                "S1",
+                "P100",
+                "2026-01-15"
+              ]
+            ]
+          }
+        ],
+        "status": "applied"
+      }
+    }
+  }
+}

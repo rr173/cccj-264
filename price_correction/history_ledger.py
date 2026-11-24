@@ -1201,9 +1201,10 @@ class PriceHistoryLedger:
     # ---------------- 查询 ---------------- #
 
     def query_price(self, store_id: str, product_id: str, date_id: str,
-                    at: Any = None) -> Dict[str, Any]:
+                    at: Any = None, *, refresh: bool = True) -> Dict[str, Any]:
         # 查询前刷新，使长生命周期实例也能看到其他 CLI 进程提交的台账。
-        if self.path.exists():
+        # 批量核对可先显式 reload()，再以 refresh=False 对同一快照逐笔查询。
+        if refresh and self.path.exists():
             self.reload()
         fact = normalize_fact({"store_id": store_id, "product_id": product_id,
                               "date_id": date_id})
